@@ -49180,8 +49180,13 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 __webpack_require__(/*! C:\Users\User\Documents\Websites\EnSaleBack-master\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\Users\User\Documents\Websites\EnSaleBack-master\resources\sass\app.scss */"./resources/sass/app.scss");
+=======
+__webpack_require__(/*! /Users/mohamedelqandili/Desktop/LaravelProjects/OK/EnSale/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/mohamedelqandili/Desktop/LaravelProjects/OK/EnSale/resources/sass/app.scss */"./resources/sass/app.scss");
+>>>>>>> 11f08fee592ee3caab86b666d9defa7fd48baf42
 
 
 /***/ })
