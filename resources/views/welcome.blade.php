@@ -14,6 +14,7 @@
     <body>
         <div id="app">
             <example-component></example-component>
+            hahahahaha
         </div>
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
