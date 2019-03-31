@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ad;
 use Illuminate\Http\Request;
+use App\Http\Resources\AdResource;
 
 class AdController extends Controller
 {
@@ -14,7 +15,10 @@ class AdController extends Controller
      */
     public function index()
     {
-        //
+         //Get ads
+         $ads=Ad::orderBy('created_at','desc')->paginate(5);
+         //Return collection of ads as a resource
+         return AdResource ::collection($ads);
     }
 
     /**
@@ -35,7 +39,16 @@ class AdController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ad=$request->isMethod('put')?Ad::findOrFail($request->ad_id):new Ad;
+        $ad->id=$request->input('ad_id');
+        $ad->title=$request->input('title');
+        $ad->description=$request->input('description');
+        $ad->price=$request->input('price');
+        $ad->sold=$request->input('sold');
+        $ad->student=$request->input('student');
+        $ad->categorie=$request->input('categorie');
+        if($ad->save())
+            return new AdResource($ad);
     }
 
     /**
@@ -44,9 +57,12 @@ class AdController extends Controller
      * @param  \App\Ad  $ad
      * @return \Illuminate\Http\Response
      */
-    public function show(Ad $ad)
+    public function show(Ad $id)
     {
-        //
+        //Get ad
+        $ad=Ad::findOrFail($id);
+        //Return single article as a resource
+        return new AdResource($ad);
     }
 
     /**
@@ -78,8 +94,11 @@ class AdController extends Controller
      * @param  \App\Ad  $ad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ad $ad)
+    public function destroy(Ad $id)
     {
-        //
+         //Get ad
+         $ad=Ad::findOrFail($id);
+         if($ad->each->delete())
+            return new AdResource($ad);
     }
 }
