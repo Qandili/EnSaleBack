@@ -14,8 +14,7 @@ class CreateAdsTable extends Migration
     public function up()
     {
         Schema::create('ads', function (Blueprint $table) {
-            $table->increments('ad_id');
-            $table->date('ad_date');
+            $table->increments('id');
             $table->text('description');
             $table->double('price');
             $table->boolean('sold');
