@@ -13,9 +13,10 @@
     </head>
     <body>
         <div id="app">
-            <example-component></example-component>
-            hahahahaha
+            <navbar></navbar>
+            <login-component></login-component>
         </div>
+        <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

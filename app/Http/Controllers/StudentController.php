@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use Illuminate\Http\Request;
+use App\Http\Resources\StudentResource;
 
 class StudentController extends Controller
 {
@@ -15,6 +16,10 @@ class StudentController extends Controller
     public function index()
     {
         //
+        $students = Student::orderBy('created_at', 'desc')->paginate(5);
+
+        // Return collection of articles as a resource
+        return StudentResource::collection($students);
     }
 
     /**
@@ -41,12 +46,14 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param   $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show($student_cne)
     {
         //
+        $student=Student::where('student_cne', $student_cne)->first();
+        return new StudentResource($student);
     }
 
     /**
