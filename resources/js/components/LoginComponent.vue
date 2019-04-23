@@ -1,21 +1,27 @@
 <template>
     <div class="container bg-light">
-        <div class="row mt-5 border border-1">
+        <div v-if="confirmed" class="row mt-5 border border-1">
             <div class="col-lg-4 col-md-12 mt-5">
                 <div class="row mt-9">
                     <img class="m-auto" width="100" height="100" src="https://image.flaticon.com/icons/png/512/17/17004.png">
                 </div>
+                <!-- <input  name="email" type="text">
+                <span>{{ errors.first('email') }}</span> -->
+
                 <form class="mt-5" action="">
                     <label for="Email">Email address</label>
-                    <input v-model="student.student_cne" type="email" class="form-control mb-2 round" id="" placeholder="Email ou CNE">
+                    <input name="email" v-validate="'required|email'" v-model="credentials.email" type="email" required class="form-control mb-2 round" id="" placeholder="Email ou CNE">
+                    <span class="text-danger d-block">{{ errors.first('email') }}</span>
                     <label for="Password">Mot de passe</label>
-                    <input  v-model="student.password" type="password" class="form-control  mb-2 round" id="" placeholder="Mot de pass">
+                    <input  name="password" v-validate="'required'" v-model="credentials.password" type="password" required class="form-control  mb-2 round" id="" placeholder="Mot de pass">
+                    <span class="text-danger">{{ errors.first('password') }}</span>
                     <p class="text-danger">{{ this.msg }}</p>
                 </form>
                 <div class="row mt-3">
                     <div class="col-12 text-center">
-                        <button @click="logIn(student.student_cne,student.password)" class="btn btn-primary">Se connecter</button>
-                        <button class="btn btn-success">Confirmer votre compte</button>
+                        <button @click="logIn()" class="btn btn-primary">Se connecter</button>
+                        <!-- <input type="submit" value="Login"> -->
+                        <button @click="confirm()" class="btn btn-success">Confirmer votre compte</button>
                     </div>
                 </div>
                 <div class="row mt-2">
@@ -28,48 +34,96 @@
                 <img width="100%" src="https://cdn-06.9rayti.com/rsrc/cache/widen_750/uploads/2017/07/Concours-d%E2%80%99acc%C3%A8s-en-3%C3%A8me-ann%C3%A9e-ENSA-Safi-2017.png" alt="">
             </div>
         </div>
+        <div v-else-if="!confirmed" class="row mt-5 border border-1">
+        </div>
+        <h2>{{ welcome }}</h2>
     </div>
 </template>
 <script>
+    import {apiDomain} from '../config.js'
+    import {login, getLocalUser} from '../Helpers/auth'
+
     export default {
+        computed: {
+            welcome(){
+                return this.$store.getters.welcome;
+            }
+        },
     data() {
         return {
-            info:0,
             msg:"",
-            student: {
-                student_cne: '',
-                first_name: '',
-                last_name: '',
-                email: '',
-                phone_number: 0,
-                password: '',
-                birth_date: '',
-                confirmed_account: '',
-                isAdmin: false
+            AuthStr:'',
+            confirmed:true,
+            myprop:"",
+            token:"",
+            user:null,
+            valid:false,
+            requiredEmail:"",
+            requiredPassword:"",
+            error:{
+                message:"",
+                "email":[]
+            },
+            credentials:{
+                email:"",
+                password:"",
+                remember_me: false
+
             },
         };
         },
         methods: {
-            logIn(cne,pass){
-                axios
-                .post('http://127.0.0.1:8000/api/login', {
-                    student_cne:cne,
-                    password:pass,
-                }).then((response) => {
-                    this.info=(response.data);
+            logIn(){
+                this.$validator.validate().then(valid => {
+                if (!valid) {
+                    return 0;
+                }else{
+
+                console.log("login called");
+                this.$store.dispatch('login');
+                console.log(this.$data.credentials.email);
+
+                login(this.$data.credentials)
+                .then((res) => {
+
+                    this.$store.commit("loginSuccess",res);
+                    console.log("success");
+                    // window.location.href="http://127.0.0.1:8001/annonces";
+                    this.$router.push("/");
                 })
-                .catch(function (error) {
-                console.log(error)});
-                setTimeout( () => 
-                {if(this.info===1){
-                    window.location.href="http://127.0.0.1:8000/api/test";
-                    console.log("login success");   
-                    return true;
+                .catch((error) => {
+                    console.log(error);
+                    this.error=error.message;
+                    this.$store.commit("loginFailed",{error});//error is a payload
+                    this.msg=error;
+                })
                 }
-                this.msg="false password or username !";
-                console.log(this.msg);      
-                return false;
-                }, 1000);
+                });
+            },
+            // logIn(cne,pass){
+            //     setTimeout( () => 
+            //     axios
+            //     .post(apiDomain+"api/auth/login", {
+            //         email:cne,
+            //         password:pass,
+            //         remember_me:true
+            //     }).then((response) => {
+            //         localStorage.setItem("state",email);
+            //         this.token=response.data.access_token;
+            //         console.log(response.data);
+            //         if(response.data){
+            //             window.location.href="http://127.0.0.1:8001/annonces";
+            //         }
+                
+            //     })
+            //     .catch(function (error) {
+            //         this.msg="false password or username !";
+            //         console.log(error)
+            //     })
+            //     , 1000);
+            // },
+    confirm(){
+        this.confirmed=false;
     }
         },
     }
@@ -83,4 +137,6 @@
     height:100%;
 }
 </style>
+
+
 

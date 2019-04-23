@@ -12,7 +12,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $student=Student::where('student_cne','=',$request->input('student_cne'))
-        ->where('password','=',$request->input('password'))
+        ->where('password','=',md5($request->input('password')))
         ->get();
         return (count($student));
     }

@@ -1,8 +1,8 @@
 <template>
     <nav class="navbar navbar-expand-sm navbar-dark mb-2" style="background-color:#2699fb;">
-        <a href="#" class="navbar-brand site-name">EnSale</a>
+        <a href="/login" class="navbar-brand site-name">EnSale</a>
         <div class="container">
-            <a href="/annonces" class="navbar-brand">Annonces</a>
+            <a href="/" class="navbar-brand">Annonces</a>
             <a href="/categories" class="navbar-brand">Catégories</a>
             <a href="#" class="navbar-brand">Contacter nous</a>
             <a href="#" class="navbar-brand">Déposer une annonce</a>

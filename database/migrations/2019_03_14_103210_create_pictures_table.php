@@ -17,7 +17,7 @@ class CreatePicturesTable extends Migration
             $table->increments('picture_id');
             $table->string('picture_file');
             $table->integer('ad')->unsigned();
-            $table->foreign('ad')->references('ad_id')->on('ads')->onDelete('cascade');
+            $table->foreign('ad')->references('id')->on('ads')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -51,7 +51,17 @@
     </div>
 </template>
 <script>
+    import {getLocalUser} from '../Helpers/auth' 
     export default {
+        beforeMount() {
+            console.log('Nothing gets called before me!');
+                console.log("welcome");
+                var user=getLocalUser();
+                console.log(user);
+                if(user==null){
+                    window.location.href="/login";
+        }
+        },
         data(){
             return{
                 ads:[],

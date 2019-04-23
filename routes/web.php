@@ -11,16 +11,14 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('welcome');
 });
 
-<<<<<<< HEAD
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-=======
-Route::get('/annonces', function () {
+Route::get('/', function () {
     return view('ads');
 });
 
@@ -28,4 +26,3 @@ Route::get('/categories', function () {
     return view('categories');
 });
 
->>>>>>> 26a697972957dc30d944f78725f27989e7f3d2c1

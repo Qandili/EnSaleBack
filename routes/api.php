@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-<<<<<<< HEAD
 
 // Route::get('students',"StudentController@index");
 
@@ -24,12 +23,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('students', 'StudentController');
 
-Route::post('login', 'LoginController@login');
+// Route::post('login', 'LoginController@login');
 
 Route::view('/test', 'test');
 
 
-=======
 //Ads
     //List ads
     Route::get('ads','AdController@index');
@@ -44,4 +42,17 @@ Route::view('/test', 'test');
 //Categories
     //List categories
     Route::get('categories','CategorieController@index');
->>>>>>> 26a697972957dc30d944f78725f27989e7f3d2c1
+Auth::routes();
+    Route::group([
+        'prefix' => 'auth'
+    ], function () {
+        Route::post('login', 'AuthController@login');
+        Route::post('signup', 'AuthController@signup');
+        Route::group([
+            'middleware' => 'auth:api'
+        ], function() {
+            Route::get('ads','AdController@index');
+            Route::get('logout', 'AuthController@logout');
+            Route::get('user', 'AuthController@user');
+        });
+    });

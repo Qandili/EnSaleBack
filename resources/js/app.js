@@ -6,8 +6,28 @@
  */
 
 require('./bootstrap');
+import routes from './routes.js';
+import router from './routes.js';
+import StoreData from './store.js';
+import vuetify from 'vuetify';
+import Vue from 'vue';
+import axios from 'axios';
+import Vuex from 'vuex'
+import VeeValidate from 'vee-validate';
+import {initialize} from './helpers/general';
 
+Vue.use(Vuex); 
+Vue.use(VeeValidate);
+const store= new Vuex.Store(StoreData);
+
+// initialize(store, router);
+
+window.axios = axios;
 window.Vue = require('vue');
+Vue.use(vuetify);
+window.axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+};
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,23 +39,21 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-<<<<<<< HEAD
 import LoginNavComponent from './components/Navbars/LoginNavComponent.vue';
-Vue.component('navbar', LoginNavComponent);
+// Vue.component('haha', LoginNavComponent);
 Vue.component('login-component', require('./components/LoginComponent.vue').default);
-=======
 
 Vue.component('ads', require('./components/Ads.vue').default);
 Vue.component('categories', require('./components/Categories.vue').default);
 Vue.component('navbar', require('./components/Navbar.vue').default);
-
->>>>>>> 26a697972957dc30d944f78725f27989e7f3d2c1
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+export default store;
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store,
+    router:routes
 });
