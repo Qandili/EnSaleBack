@@ -14,7 +14,6 @@
     </head>
     <body>
         <div id="app">
-            <navbar></navbar>
             <login-component></login-component>
         </div>
         <script src="{{ asset('js/app.js') }}"></script>

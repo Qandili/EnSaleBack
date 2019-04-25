@@ -1,42 +1,45 @@
 <template>
-    <div class="container bg-light">
-        <div v-if="confirmed" class="row mt-5 border border-1">
-            <div class="col-lg-4 col-md-12 mt-5">
-                <div class="row mt-9">
-                    <img class="m-auto" width="100" height="100" src="https://image.flaticon.com/icons/png/512/17/17004.png">
-                </div>
-                <!-- <input  name="email" type="text">
-                <span>{{ errors.first('email') }}</span> -->
+    <div>
+        <navbar></navbar>
+        <div class="container bg-light">
+            <div v-if="confirmed" class="row mt-5 border border-1">
+                <div class="col-lg-4 col-md-12 mt-5">
+                    <div class="row mt-9">
+                        <img class="m-auto" width="100" height="100" src="https://image.flaticon.com/icons/png/512/17/17004.png">
+                    </div>
+                    <!-- <input  name="email" type="text">
+                    <span>{{ errors.first('email') }}</span> -->
 
-                <form class="mt-5" action="">
-                    <label for="Email">Email address</label>
-                    <input name="email" v-validate="'required|email'" v-model="credentials.email" type="email" required class="form-control mb-2 round" id="" placeholder="Email ou CNE">
-                    <span class="text-danger d-block">{{ errors.first('email') }}</span>
-                    <label for="Password">Mot de passe</label>
-                    <input  name="password" v-validate="'required'" v-model="credentials.password" type="password" required class="form-control  mb-2 round" id="" placeholder="Mot de pass">
-                    <span class="text-danger">{{ errors.first('password') }}</span>
-                    <p class="text-danger">{{ this.msg }}</p>
-                </form>
-                <div class="row mt-3">
-                    <div class="col-12 text-center">
-                        <button @click="logIn()" class="btn btn-primary">Se connecter</button>
-                        <!-- <input type="submit" value="Login"> -->
-                        <button @click="confirm()" class="btn btn-success">Confirmer votre compte</button>
+                    <form class="mt-5" action="">
+                        <label for="Email">Email address</label>
+                        <input name="email" v-validate="'required|email'" v-model="credentials.email" type="email" required class="form-control mb-2 round" id="" placeholder="Email ou CNE">
+                        <span class="text-danger d-block">{{ errors.first('email') }}</span>
+                        <label for="Password">Mot de passe</label>
+                        <input  name="password" v-validate="'required'" v-model="credentials.password" type="password" required class="form-control  mb-2 round" id="" placeholder="Mot de pass">
+                        <span class="text-danger">{{ errors.first('password') }}</span>
+                        <p class="text-danger">{{ this.msg }}</p>
+                    </form>
+                    <div class="row mt-3">
+                        <div class="col-12 text-center">
+                            <button @click="logIn()" class="btn btn-primary">Se connecter</button>
+                            <!-- <input type="submit" value="Login"> -->
+                            <button @click="confirm()" class="btn btn-success">Confirmer votre compte</button>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12 text-center">
+                            <a href="#">mot de passe oublié?</a>
+                        </div>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-12 text-center">
-                        <a href="#">mot de passe oublié?</a>
-                    </div>
+                <div class="col-lg-8 col-md-12 m-0 p-0">
+                    <img width="100%" src="https://cdn-06.9rayti.com/rsrc/cache/widen_750/uploads/2017/07/Concours-d%E2%80%99acc%C3%A8s-en-3%C3%A8me-ann%C3%A9e-ENSA-Safi-2017.png" alt="">
                 </div>
             </div>
-            <div class="col-lg-8 col-md-12 m-0 p-0">
-                <img width="100%" src="https://cdn-06.9rayti.com/rsrc/cache/widen_750/uploads/2017/07/Concours-d%E2%80%99acc%C3%A8s-en-3%C3%A8me-ann%C3%A9e-ENSA-Safi-2017.png" alt="">
+            <div v-else-if="!confirmed" class="row mt-5 border border-1">
             </div>
+            <h2>{{ welcome }}</h2>
         </div>
-        <div v-else-if="!confirmed" class="row mt-5 border border-1">
-        </div>
-        <h2>{{ welcome }}</h2>
     </div>
 </template>
 <script>
@@ -44,6 +47,14 @@
     import {login, getLocalUser} from '../Helpers/auth'
 
     export default {
+        beforeMount() {
+                console.log('Nothing gets called before me!');
+                var user=getLocalUser();
+                console.log(user);
+                if(user){
+                    window.location.href="/";
+        }
+        },
         computed: {
             welcome(){
                 return this.$store.getters.welcome;
@@ -88,8 +99,8 @@
 
                     this.$store.commit("loginSuccess",res);
                     console.log("success");
-                    // window.location.href="http://127.0.0.1:8001/annonces";
-                    this.$router.push("/");
+                    window.location.href="http://127.0.0.1:8001/";
+                    // this.$router.push("/");
                 })
                 .catch((error) => {
                     console.log(error);
