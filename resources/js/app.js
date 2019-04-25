@@ -9,22 +9,25 @@ require('./bootstrap');
 import routes from './routes.js';
 import router from './routes.js';
 import StoreData from './store.js';
-import vuetify from 'vuetify';
 import Vue from 'vue';
 import axios from 'axios';
 import Vuex from 'vuex'
 import VeeValidate from 'vee-validate';
 import {initialize} from './helpers/general';
-
+import BootstrapVue from 'bootstrap-vue'
+import LoginNavComponent from './components/Navbars/LoginNavComponent.vue';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(Vuex); 
 Vue.use(VeeValidate);
+Vue.use(BootstrapVue)
+
 const store= new Vuex.Store(StoreData);
 
 // initialize(store, router);
 
 window.axios = axios;
 window.Vue = require('vue');
-Vue.use(vuetify);
 window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
 };
@@ -39,7 +42,6 @@ window.axios.defaults.headers.common = {
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-import LoginNavComponent from './components/Navbars/LoginNavComponent.vue';
 // Vue.component('haha', LoginNavComponent);
 Vue.component('login-component', require('./components/LoginComponent.vue').default);
 

@@ -5,7 +5,7 @@
             <div v-if="confirmed" class="row mt-5 border border-1">
                 <div class="col-lg-4 col-md-12 mt-5">
                     <div class="row mt-9">
-                        <img class="m-auto" width="100" height="100" src="https://image.flaticon.com/icons/png/512/17/17004.png">
+                        <img class="m-auto" width="100" height="100" src="https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png">
                     </div>
                     <!-- <input  name="email" type="text">
                     <span>{{ errors.first('email') }}</span> -->
@@ -91,8 +91,8 @@
                 }else{
 
                 console.log("login called");
-                this.$store.dispatch('login');
                 console.log(this.$data.credentials.email);
+                this.$store.dispatch('login');
 
                 login(this.$data.credentials)
                 .then((res) => {

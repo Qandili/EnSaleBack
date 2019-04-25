@@ -27,9 +27,11 @@ export default{
             state.auth_error=payload.error;
         }, 
         logout(state){  
+            console.log("logout Called");
             localStorage.removeItem("user");
             state.isLoggedIn=false;
             state.currentUser=null;
+            location.reload();
         }
     },
     getters:{
@@ -53,6 +55,9 @@ export default{
         //ajax calls to my api must be done in Actions cause it is asynchrounous, once it is resolved it will commit a mutation to my store
         login(context){
             context.commit("login");//we are commiting the login mutation
+        },
+        logout(context){
+            context.commit("logout");//we are commiting the login mutation
         }
     }
 }
