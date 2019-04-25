@@ -6,6 +6,7 @@ import VueRouter from 'vue-router';
 import ads from './components/Ads.vue';
 import categories from './components/Categories.vue';
 import login from './components/LoginComponent.vue';
+import profile from './components/UserInfos/profile.vue'; 
 import store from './app.js'
 Vue.use(VueRouter);
 const router = new VueRouter({
@@ -28,6 +29,14 @@ const router = new VueRouter({
             path:'/categories',
             name:'categories',
             component:categories,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path:'/profile',
+            name:'profile',
+            component:profile,
             meta: {
                 requiresAuth: true
             }

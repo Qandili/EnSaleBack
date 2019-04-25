@@ -1,4 +1,4 @@
-import { getLocalUser } from "./Helpers/auth";
+import { getLocalUser,Logout } from "./Helpers/auth";
 
 const user=getLocalUser();
 export default{
@@ -26,7 +26,8 @@ export default{
             state.loading=false;
             state.auth_error=payload.error;
         }, 
-        logout(state){  
+        logout(state){
+            Logout();
             console.log("logout Called");
             localStorage.removeItem("user");
             state.isLoggedIn=false;

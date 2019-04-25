@@ -16,19 +16,28 @@ export function login(credentials){
 }
 export function Logout(){
     var user=getLocalUser();
-    setTokenapi(user.access_token);
-
+    const AuthStr='Bearer '.concat(user.token);
+    // console.log(AuthStr);    
     return new Promise((res,rej) =>{
-        api.get("api/auth/logout")
+        axios.get("api/auth/logout",{
+            headers:{
+                Authorization: AuthStr,
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
         .then((response) => {
-            // setAuthorization(response.data.access_token);
             res(response);
             console.log(response);
-            // location.reload();
-        })
-        .catch(function (error) {
-            rej("Error occured");
-        })
+        }).catch(function (error) {
+            rej("an error occured");
+        });
+        // api.get("api/auth/logout")
+        // .then((response) => {
+        //     // setAuthorization(response.data.access_token);
+        //     res(response);
+        //     console.log(response);
+        //     // location.reload();
+        // });
         })
 }
 export function getLocalUser(){
