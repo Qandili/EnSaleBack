@@ -5,6 +5,7 @@
             <div v-if="confirmed" class="row mt-5 border border-1">
                 <div class="col-lg-4 col-md-12 mt-5">
                     <div class="row mt-9">
+                        hi
                         <img class="m-auto" width="100" height="100" src="https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png">
                     </div>
                     <!-- <input  name="email" type="text">
