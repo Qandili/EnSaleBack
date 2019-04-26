@@ -1,4 +1,4 @@
-import {setAuthorization} from '../helpers/general';
+import {setAuthorization} from '../Helpers/general';
 import {api} from '../api.js';
 import {setToken} from '../api.js';
 

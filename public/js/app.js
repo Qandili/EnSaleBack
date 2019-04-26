@@ -96221,7 +96221,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Logout", function() { return Logout; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLocalUser", function() { return getLocalUser; });
-/* harmony import */ var _helpers_general__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/general */ "./resources/js/helpers/general.js");
+/* harmony import */ var _Helpers_general__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Helpers/general */ "./resources/js/Helpers/general.js");
 /* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api.js */ "./resources/js/api.js");
 
 
@@ -96229,7 +96229,7 @@ __webpack_require__.r(__webpack_exports__);
 function login(credentials) {
   return new Promise(function (res, rej) {
     axios.post("api/auth/login", credentials).then(function (response) {
-      Object(_helpers_general__WEBPACK_IMPORTED_MODULE_0__["setAuthorization"])(response.data.access_token);
+      Object(_Helpers_general__WEBPACK_IMPORTED_MODULE_0__["setAuthorization"])(response.data.access_token);
       res(response.data);
     }).catch(function (error) {
       rej("wrong email or password");
@@ -96268,6 +96268,57 @@ function getLocalUser() {
   }
 
   return JSON.parse(userStr);
+}
+
+/***/ }),
+
+/***/ "./resources/js/Helpers/general.js":
+/*!*****************************************!*\
+  !*** ./resources/js/Helpers/general.js ***!
+  \*****************************************/
+/*! exports provided: initialize, setAuthorization */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialize", function() { return initialize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAuthorization", function() { return setAuthorization; });
+function initialize(store, router) {
+  console.log("jank");
+  router.beforeEach(function (to, from, next) {
+    var requiresAuth = to.matched.some(function (record) {
+      return record.meta.requiresAuth;
+    });
+    var currentUser = store.state.currentUser;
+
+    if (requiresAuth && !currentUser) {
+      // next('/login');
+      window.location.href = "http://127.0.0.1:8001/login";
+      console.log("not logged in");
+    } else if (to.path == '/login' && currentUser) {
+      // next('/annonces');
+      window.location.href = "http://127.0.0.1:8001/";
+      console.log("logged in");
+    } else {
+      next();
+    }
+  });
+  axios.interceptors.response.use(null, function (error) {
+    if (error.resposne.status == 401) {
+      console.log("not logged in");
+      store.commit('logout');
+      router.push('/login');
+    }
+
+    return Promise.reject(error);
+  });
+
+  if (store.getters.currentUser) {
+    setAuthorization(store.getters.currentUser.token);
+  }
+}
+function setAuthorization(token) {
+  axios.defaults.headers.common["Authorization"] = "Bearer ".concat(token);
 }
 
 /***/ }),
@@ -96319,7 +96370,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
-/* harmony import */ var _helpers_general__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./helpers/general */ "./resources/js/helpers/general.js");
+/* harmony import */ var _Helpers_general__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Helpers/general */ "./resources/js/Helpers/general.js");
 /* harmony import */ var bootstrap_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! bootstrap-vue */ "./node_modules/bootstrap-vue/es/index.js");
 /* harmony import */ var bootstrap_vue__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(bootstrap_vue__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _components_Navbars_LoginNavComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Navbars/LoginNavComponent.vue */ "./resources/js/components/Navbars/LoginNavComponent.vue");
@@ -96945,57 +96996,6 @@ var apiDomain = 'http://127.0.0.1:8001/';
 var state = {
   accessToken: null
 };
-
-/***/ }),
-
-/***/ "./resources/js/helpers/general.js":
-/*!*****************************************!*\
-  !*** ./resources/js/helpers/general.js ***!
-  \*****************************************/
-/*! exports provided: initialize, setAuthorization */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialize", function() { return initialize; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAuthorization", function() { return setAuthorization; });
-function initialize(store, router) {
-  console.log("jank");
-  router.beforeEach(function (to, from, next) {
-    var requiresAuth = to.matched.some(function (record) {
-      return record.meta.requiresAuth;
-    });
-    var currentUser = store.state.currentUser;
-
-    if (requiresAuth && !currentUser) {
-      // next('/login');
-      window.location.href = "http://127.0.0.1:8001/login";
-      console.log("not logged in");
-    } else if (to.path == '/login' && currentUser) {
-      // next('/annonces');
-      window.location.href = "http://127.0.0.1:8001/";
-      console.log("logged in");
-    } else {
-      next();
-    }
-  });
-  axios.interceptors.response.use(null, function (error) {
-    if (error.resposne.status == 401) {
-      console.log("not logged in");
-      store.commit('logout');
-      router.push('/login');
-    }
-
-    return Promise.reject(error);
-  });
-
-  if (store.getters.currentUser) {
-    setAuthorization(store.getters.currentUser.token);
-  }
-}
-function setAuthorization(token) {
-  axios.defaults.headers.common["Authorization"] = "Bearer ".concat(token);
-}
 
 /***/ }),
 

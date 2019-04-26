@@ -13,7 +13,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import Vuex from 'vuex'
 import VeeValidate from 'vee-validate';
-import {initialize} from './helpers/general';
+import {initialize} from './Helpers/general';
 import BootstrapVue from 'bootstrap-vue'
 import LoginNavComponent from './components/Navbars/LoginNavComponent.vue';
 import 'bootstrap/dist/css/bootstrap.css'
