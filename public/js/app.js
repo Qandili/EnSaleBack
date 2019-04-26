@@ -1818,13 +1818,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  beforeMount: function beforeMount() {
+  beforeCreate: function beforeCreate() {
     console.log('Nothing gets called before me!');
     console.log("welcome");
     var user = Object(_Helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
     console.log(user);
 
-    if (user == null) {
+    if (!user) {
       window.location.href = "/login";
     }
   },

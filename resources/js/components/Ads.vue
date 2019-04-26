@@ -53,12 +53,12 @@
 <script>
     import {getLocalUser} from '../Helpers/auth' 
     export default {
-        beforeMount() {
+        beforeCreate() {
             console.log('Nothing gets called before me!');
                 console.log("welcome");
                 var user=getLocalUser();
                 console.log(user);
-                if(user==null){
+                if(!user){
                     window.location.href="/login";
         }
         },
