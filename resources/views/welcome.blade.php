@@ -2,7 +2,5 @@
 @section('content')
     <body>
         <div id="app">
-            <login-component></login-component>
+            <mainapp></mainapp>
         </div>
-        <script src="{{ asset('js/app.js') }}"></script>
-    </body>

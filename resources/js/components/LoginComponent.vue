@@ -1,11 +1,10 @@
 <template>
     <div>
-        <navbar></navbar>
+        <navbar/>
         <div class="container bg-light">
             <div v-if="confirmed" class="row mt-5 border border-1">
                 <div class="col-lg-4 col-md-12 mt-5">
                     <div class="row mt-9">
-                        hi
                         <img class="m-auto" width="100" height="100" src="https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png">
                     </div>
                     <!-- <input  name="email" type="text">
@@ -34,7 +33,7 @@
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12 m-0 p-0">
-                    <img width="100%" src="https://cdn-06.9rayti.com/rsrc/cache/widen_750/uploads/2017/07/Concours-d%E2%80%99acc%C3%A8s-en-3%C3%A8me-ann%C3%A9e-ENSA-Safi-2017.png" alt="">
+                    <img height="70%" width="100%" src="http://www.fcensas.com/template/img/slider/ensas-pano.jpg" alt="">
                 </div>
             </div>
             <div v-else-if="!confirmed" class="row mt-5 border border-1">
@@ -48,14 +47,7 @@
     import {login, getLocalUser} from '../Helpers/auth'
 
     export default {
-        beforeMount() {
-                console.log('Nothing gets called before me!');
-                var user=getLocalUser();
-                console.log(user);
-                if(user){
-                    window.location.href="/";
-        }
-        },
+        name:"login",
         computed: {
             welcome(){
                 return this.$store.getters.welcome;
@@ -100,7 +92,8 @@
 
                     this.$store.commit("loginSuccess",res);
                     console.log("success");
-                    window.location.href="http://127.0.0.1:8001/";
+                    this.$router.push({path: '/'});
+                    // window.location.href="http://127.0.0.1:8001/";
                     // this.$router.push("/");
                 })
                 .catch((error) => {

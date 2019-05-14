@@ -52,6 +52,7 @@ Auth::routes();
             'middleware' => 'auth:api'
         ], function() {
             Route::get('ads','AdController@index');
+            Route::get('profile','ProfileController@index');
             Route::get('logout', 'AuthController@logout');
             Route::get('user', 'AuthController@user');
         });

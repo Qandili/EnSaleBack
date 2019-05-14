@@ -1,5 +1,6 @@
 <template>
     <div>
+        <navbar/>
         <div class="most-watched">
             <h4 class="big-title">Les plus vues</h4>
         </div>
@@ -53,15 +54,6 @@
 <script>
     import {getLocalUser} from '../Helpers/auth' 
     export default {
-        beforeCreate() {
-            console.log('Nothing gets called before me!');
-                console.log("welcome");
-                var user=getLocalUser();
-                console.log(user);
-                if(!user){
-                    window.location.href="/login";
-        }
-        },
         data(){
             return{
                 ads:[],

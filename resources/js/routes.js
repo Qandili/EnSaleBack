@@ -1,21 +1,29 @@
 
-import Vue from 'vue';
+// import Vue from 'vue';
 
-import VueRouter from 'vue-router';
+// import VueRouter from 'vue-router';
 
 import ads from './components/Ads.vue';
 import categories from './components/Categories.vue';
-import login from './components/LoginComponent.vue';
+import LoginComponent from './components/LoginComponent.vue';
+import SpaTest from './components/SpaTest.vue';
 import profile from './components/UserInfos/profile.vue'; 
+import MesAnnonces from './components/UserInfos/Mesannonces.vue'; 
+import MesFavoris from './components/UserInfos/MesFavoris.vue'; 
+import MesParametres from './components/UserInfos/Mesparametres.vue'; 
 import store from './app.js'
-Vue.use(VueRouter);
-const router = new VueRouter({
-    mode:'history',
-    routes: [
+// Vue.use(VueRouter);
+export const router = [
+
+        {
+            path:'/spa',
+            name:'spatest',
+            component:SpaTest
+        },
         {
             path:'/login',
             name:'login',
-            component:login
+            component:LoginComponent
         },
         {
             path:'/',
@@ -37,12 +45,29 @@ const router = new VueRouter({
             path:'/profile',
             name:'profile',
             component:profile,
+            children: [
+                {
+                  // UserProfile will be rendered inside User's <router-view>
+                  // when /user/:id/profile is matched
+                path: 'mesannonces',
+                component: MesAnnonces
+                },
+                {
+                // UserPosts will be rendered inside User's <router-view>
+                // when /user/:id/posts is matched
+                path: 'mesfavoris',
+                component: MesFavoris
+                },
+                {
+                    path:'',
+                    component:MesParametres
+                }
+            ],
             meta: {
                 requiresAuth: true
             }
-        }
-    ]
-});
+        },  
+];
 // router.beforeEach((to,from,next)=>{
 //     const requiresAuth=to.matched.some(record => record.meta.requiresAuth);
 //     const currentUser=store.state.currentUser;
