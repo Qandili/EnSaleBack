@@ -14,9 +14,9 @@ class CreateWishesTable extends Migration
     public function up()
     {
         Schema::create('wishes', function (Blueprint $table) {
-            $table->increments('wish_id');
-            $table->string('student');
-            $table->foreign('student')->references('student_cne')->on('students')->onDelete('cascade');
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

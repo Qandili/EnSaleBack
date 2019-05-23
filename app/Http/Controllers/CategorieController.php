@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Categorie;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 use App\Http\Resources\CategorieResource;
 
@@ -17,7 +17,7 @@ class CategorieController extends Controller
     public function index()
     {
         //Get categories
-        $categories=Categorie::paginate(5);
+        $categories=Categorie::all();
         //Return collection of categories as a resource
         return CategorieResource ::collection($categories);
     }

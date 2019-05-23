@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Picture;
+use App\Models\Picture;
 use Illuminate\Http\Request;
 
 class PictureController extends Controller

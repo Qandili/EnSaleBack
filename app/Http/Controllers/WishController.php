@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Wish;
+use App\Models\Wish;
 use Illuminate\Http\Request;
 
 class WishController extends Controller

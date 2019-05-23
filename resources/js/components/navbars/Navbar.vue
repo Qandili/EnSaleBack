@@ -2,25 +2,25 @@
     <nav class="navbar navbar-expand-sm navbar-dark mb-2" style="background-color:#2699fb;">
         <a href="/" class="navbar-brand site-name">EnSale</a>
         <div v-if="user" class="container divNav">
-            <a  class="navbar-brand"><router-link to="/" class="color-white">Annonces</router-link></a>
-            <a href="/categories" class="navbar-brand">Catégories</a>
+            <router-link to="/" class="navbar-brand">Annonces</router-link>
+            <router-link to="/categories" class="navbar-brand">Catégories</router-link>
             <a href="#" class="navbar-brand">Contacter nous</a>
-            <a href="#" class="navbar-brand">Déposer une annonce</a>
+            <router-link to="/newad" class="navbar-brand">Déposer une annonce</router-link>
             <a href="#" class="navbar-brand"><img src="" alt=""></a>
         </div>
         <div>
-        <b-dropdown v-if="user" variant="primary" id="dropdown-1" text="options" class="m-md-2 primary drop">
-            <b-dropdown-item><router-link  to="/profile">profil</router-link></b-dropdown-item>
-            <b-dropdown-item>Mes annonces</b-dropdown-item>
-            <b-dropdown-item>mes favories</b-dropdown-item>
-            <b-dropdown-divider></b-dropdown-divider>
-            <b-dropdown-item @click="logout"  active>Logout</b-dropdown-item>
-        </b-dropdown>
-</div>
+            <b-dropdown v-if="user" variant="primary" id="dropdown-1" text="Options" class="m-md-2 primary drop">
+                <b-dropdown-item><router-link  to="/profile">profil</router-link></b-dropdown-item>
+                <b-dropdown-item>Mes annonces</b-dropdown-item>
+                <b-dropdown-item>mes favories</b-dropdown-item>
+                <b-dropdown-divider></b-dropdown-divider>
+                <b-dropdown-item @click="logout"  active>Logout</b-dropdown-item>
+            </b-dropdown>
+        </div>
     </nav>
 </template>
 <script>
-import { logout,getLocalUser } from '../Helpers/auth';
+import { logout,getLocalUser } from '../../Helpers/auth';
 
 export default {
     created(){

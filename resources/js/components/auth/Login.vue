@@ -43,8 +43,8 @@
     </div>
 </template>
 <script>
-    import {apiDomain} from '../config.js'
-    import {login, getLocalUser} from '../Helpers/auth'
+    import {apiDomain} from '../../config.js'
+    import {login, getLocalUser} from '../../Helpers/auth'
 
     export default {
         name:"login",
@@ -127,20 +127,20 @@
             //     })
             //     , 1000);
             // },
-    confirm(){
-        this.confirmed=false;
-    }
+        confirm(){
+            this.confirmed=false;
         },
-    }
+    },
+}
 </script>
 <style>
-.mt-9{
-    margin-top: 35px;
-}
-#img{
-    width: 100%;
-    height:100%;
-}
+    .mt-9{
+        margin-top: 35px;
+    }
+    #img{
+        width: 100%;
+        height:100%;
+    }
 </style>
 
 

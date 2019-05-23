@@ -13,7 +13,7 @@
                 <h3>{{ad.title}}</h3>
                 <ul>
                     <li>Prix: {{ad.price}}</li>
-                    <li>Catégorie: {{ad.categorie}}</li>
+                    <li>Catégorie: {{ad.categorie_id}}</li>
                 </ul>
                 <b>{{ad.created_at}}</b>
             </a>
@@ -34,15 +34,15 @@
             </nav>
         </div>
 
-        <div class="card card-body mb-2 ad-body single-data" v-for="ad in single_ad" :key="ad.id" v-show="single_ad">
-            <h3>{{ad.title}}</h3>
+        <div class="card card-body mb-2 ad-body single-data" v-show="single_ad">
+            <h3>{{single_ad.title}}</h3>
             <ul>
-                <li>Prix: {{ad.price}}</li>
-                <li>Catégorie: {{ad.categorie}}</li>
-                <li>Propriétaire: {{ad.categorie}}</li>
+                <li>Prix: {{single_ad.price}}</li>
+                <li>Catégorie: {{single_ad.categorie_id}}</li>
+                <li>Propriétaire: {{single_ad.user_id}}</li>
             </ul>
-            <p>{{ad.description}}</p>
-            <b>{{ad.created_at}}</b>
+            <p>{{single_ad.description}}</p>
+            <b>{{single_ad.created_at}}</b>
             <ul class="reactions">
                 <li><a @click="likes++"><i class="far fa-thumbs-up"></i> {{likes}}</a></li>&emsp;
                 <li><a @click="comment()"><i class="far fa-comment-dots"></i> {{comments}}</a></li>&emsp;
@@ -82,14 +82,20 @@
         },
         methods:{
             fetchAds(page_url){
-                let vm=this;
-                page_url=page_url || 'api/ads'
-                fetch(page_url)
+                var user=getLocalUser();
+                const AuthStr='Bearer '.concat(user.token);
+                page_url=page_url || 'api/auth/ads'
+                fetch(page_url,{
+                    headers:{
+                        'Authorization': AuthStr,
+                        'Content-Type': 'application/json',
+                    }
+                })
                 .then(res=>res.json())
                 .then(res=>{
                     //console.log(res.data);
                     this.ads=res.data;
-                    vm.makePagination(res.meta,res.links);
+                    this.makePagination(res.meta,res.links);
                 })
                 .catch(err => console.log(err));
             },
@@ -103,8 +109,14 @@
                 this.pagination=pagination;
             },
             showAd(id){
-                let vm=this;
-                fetch('api/ad/'+id)
+                var user=getLocalUser();
+                const AuthStr='Bearer '.concat(user.token);
+                fetch('api/auth/ad/'+id,{
+                    headers:{
+                        'Authorization': AuthStr,
+                        'Content-Type': 'application/json',
+                    }
+                })
                 .then(res=>res.json())
                 .then(res=>{
                     //console.log(res.data);
@@ -117,6 +129,10 @@
     }
 </script>
 <style>
+    .data-list,.most-watched,.by-category,.single-data{
+        margin: auto;
+        width: 80%;
+    }
     .big-title{
         color: #2699fb;
         text-decoration: underline;

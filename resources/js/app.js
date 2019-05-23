@@ -15,7 +15,6 @@ import VueRouter from 'vue-router';
 import VeeValidate from 'vee-validate';
 import {initialize} from './Helpers/general';
 import BootstrapVue from 'bootstrap-vue'
-import LoginNavComponent from './components/Navbars/LoginNavComponent.vue';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import {getLocalUser} from './Helpers/auth' 
@@ -44,11 +43,10 @@ window.axios.defaults.headers.common = {
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 // Vue.component('haha', LoginNavComponent);
-Vue.component('login-component', require('./components/LoginComponent.vue').default);
 
 Vue.component('ads', require('./components/Ads.vue').default);
 Vue.component('categories', require('./components/Categories.vue').default);
-Vue.component('navbar', require('./components/Navbar.vue').default);
+Vue.component('navbar', require('./components/navbars/Navbar.vue').default);
 Vue.component('profile', require('./components/UserInfos/profile.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to

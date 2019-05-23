@@ -1,4 +1,4 @@
-export const apiDomain='http://127.0.0.1:8001/';
+export const apiDomain='http://localhost:8000/';
 export const state = {
     accessToken: null,
 };

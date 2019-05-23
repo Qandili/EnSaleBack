@@ -15,14 +15,14 @@ class CreateAdsTable extends Migration
     {
         Schema::create('ads', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title');
             $table->text('description');
             $table->double('price');
-            $table->boolean('sold');
-            $table->string('title');
-            $table->string('student');
-            $table->integer('categorie')->unsigned();
-            $table->foreign('student')->references('student_cne')->on('students')->onDelete('cascade');
-            $table->foreign('categorie')->references('categorie_id')->on('categories')->onDelete('cascade');
+            $table->boolean('sold')->default(false);
+            $table->integer('user_id')->unsigned();
+            $table->integer('categorie_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('categorie_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
