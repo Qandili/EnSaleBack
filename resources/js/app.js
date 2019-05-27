@@ -6,8 +6,31 @@
  */
 
 require('./bootstrap');
-
+import routes from './routes.js';
+import StoreData from './store.js';
+import Vue from 'vue';
+import axios from 'axios';
+import Vuex from 'vuex';
+import VueRouter from 'vue-router';
+import VeeValidate from 'vee-validate';
+import {initialize} from './Helpers/general';
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import {getLocalUser} from './Helpers/auth' 
+import mainapp from './components/MainApp.vue'
+/************** Usages *************** */
+Vue.use(Vuex); 
+Vue.use(VeeValidate);
+Vue.use(BootstrapVue)
+Vue.use(VueRouter);
+// initialize(store, router);
+/*************** Instances ************************ */
+window.axios = axios;
 window.Vue = require('vue');
+window.axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+};
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,15 +42,35 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+// Vue.component('haha', LoginNavComponent);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
+Vue.component('ads', require('./components/Ads.vue').default);
+Vue.component('categories', require('./components/Categories.vue').default);
+Vue.component('navbar', require('./components/navbars/Navbar.vue').default);
+Vue.component('profile', require('./components/UserInfos/profile.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+export default store;
+// export function isLoggedIn(){
+//     var user=getLocalUser();
+//     return user;
+// }
+const store= new Vuex.Store(StoreData);
+const router = new VueRouter({
+    routes,
+    mode: 'history'
+});
+initialize(store, router);
 
+export const User = getLocalUser();
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store,
+    router,
+    components:{
+        mainapp
+    }
 });
