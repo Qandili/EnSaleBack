@@ -34,7 +34,6 @@ class LoginController extends Controller
             'message' => 'Successfully created user!'
         ], 201);
     }
-  
     /**
      * Login user and create token
      *

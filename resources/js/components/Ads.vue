@@ -76,15 +76,28 @@
                 shares: 0
             }
         },
-        created(){
+        mounted(){
             //run automatically when the page loads
             this.fetchAds();
+            console.log(this.ads);
         },
         methods:{
             fetchAds(page_url){
                 var user=getLocalUser();
                 const AuthStr='Bearer '.concat(user.token);
-                page_url=page_url || 'api/auth/ads'
+                page_url=page_url || 'api/auth/ads';
+                //     axios
+                // .get(page_url,{
+                //     headers:{
+                //         'Authorization': AuthStr,
+                //         'Content-Type': 'application/json',
+                //     }
+                // })
+                // .then(response => {
+                //     console.log(response.data);
+                //     this.ads=response.data;
+                //     this.makePagination(response.meta,response.links);
+                // }).catch(err => console.log(err));
                 fetch(page_url,{
                     headers:{
                         'Authorization': AuthStr,
@@ -93,7 +106,7 @@
                 })
                 .then(res=>res.json())
                 .then(res=>{
-                    //console.log(res.data);
+                    console.log(res.data);
                     this.ads=res.data;
                     this.makePagination(res.meta,res.links);
                 })

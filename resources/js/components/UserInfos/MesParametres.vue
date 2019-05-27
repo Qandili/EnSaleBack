@@ -61,7 +61,7 @@ export default {
     data() {
     return {
         form: {
-        cne:this.$parent.user.student_cne,
+        cne:this.$parent.user.cne,
         email: this.$parent.user.email,
         firstName: this.$parent.user.first_name,
         lastName:this.$parent.user.last_name,
