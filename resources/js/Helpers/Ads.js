@@ -5,7 +5,7 @@ export function postAd(credentials){
             res(response.data);
         })
         .catch(function (error) {
-            rej("wrong email or password");
+            rej("une erreur s'est produite");
         })
         })
 }

@@ -2106,6 +2106,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2116,7 +2130,7 @@ __webpack_require__.r(__webpack_exports__);
       user: this.$store.getters.currentUser,
       categories: [],
       newAd: {
-        image: '',
+        image: [],
         title: '',
         description: '',
         price: 0,
@@ -2129,6 +2143,10 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchCategories();
   },
   methods: {
+    close: function close(index, e) {
+      e.preventDefault();
+      this.newAd.image.splice(index, 1);
+    },
     onImageChange: function onImageChange(e) {
       var _this = this;
 
@@ -2136,7 +2154,7 @@ __webpack_require__.r(__webpack_exports__);
       fileReader.readAsDataURL(e.target.files[0]);
 
       fileReader.onload = function (e) {
-        _this.newAd.image = e.target.result;
+        _this.newAd.image.push(e.target.result);
       };
     },
     // createImage(file) {
@@ -2172,26 +2190,27 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addPost: function addPost() {
+      var _this3 = this;
+
       var user = Object(_Helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
       var AuthStr = 'Bearer '.concat(user.token);
       console.log(this.newAd);
       Object(_Helpers_Ads__WEBPACK_IMPORTED_MODULE_2__["postAd"])(this.newAd).then(function (res) {
-        console.log("success"); // window.location.href="http://127.0.0.1:8001/";
-        // this.$router.push("/");
+        _this3.$bvToast.toast('votre publication a bien été publié', {
+          title: 'Message',
+          variant: "success",
+          solid: true
+        }); // window.location.href="http://127.0.0.1:8000/";
+
       }).catch(function (error) {
         console.log(error);
-      }); // axios.post(apiDomain+'api/auth/ad/new', this.newAd,{
-      //         headers:{
-      //             'Authorization': AuthStr,
-      //             'X-Requested-With': 'XMLHttpRequest',
-      //             'Content-Type': 'application/json'
-      //         }
-      //     })
-      //     .then(response => {
-      //         res(response);
-      //     })
-      //     .catch(err => console.error(err));
-      //this.$router.push({path: '/'});
+
+        _this3.$bvToast.toast(error, {
+          title: 'Message',
+          variant: "danger",
+          solid: true
+        });
+      });
     }
   }
 });
@@ -36891,7 +36910,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.margin{\n    margin-top:10%;\n}\n/* .back{\n    background-image: url(\"https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png\");\n} */\n.big-title{\n    margin-left: 10%;\n    color: #2699fb;\n    text-decoration: underline;\n}\n.radius{\n        border-radius: 1rem;\n}\n.form{\n    width: 60%;\n    margin: auto;\n    margin-top:50px;\n    margin-bottom:50px;\n    padding: 30px;\n    border: 5px solid #083f91;\n    border-top-left-radius: 30px;\n    border-bottom-right-radius: 30px;\n}\nfieldset legend{\n    font-weight: bold;\n    font-size: 25px;\n    color: #083f91;\n}\n\n", ""]);
+exports.push([module.i, "\n#container {\n    width: 30%;\n    border-radius: 25px;\n    border: 2px solid #A4D3EE;\n    /* padding: 15px 15px 15px 15px; */\n    margin: 20px 20px 20px 20px;\n    background: #A4D3EE;\n    overflow: visible;\n    box-shadow: 3px 3px 2px #888888;\n    position: relative;\n    display: inline-block;\n}\n#x {\n    position: absolute;\n    background: red;\n    color: white;\n    top: -10px;\n    right: -10px;\n}\n.margin{\n        margin-top:10%;\n}\n    /* .back{\n        background-image: url(\"https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png\");\n    } */\n.big-title{\n        margin-left: 10%;\n        color: #2699fb;\n        text-decoration: underline;\n}\n.radius{\n            border-radius: 1rem;\n}\n.hi{\n}\n.image{\n        width: 100%;\n        height: 16%;\n        margin: 1;\n        padding: 6px;\n        /* border: 1px solid gray; */\n        border-radius: 1.5rem;\n}\n.form{\n        width: 60%;\n        margin: auto;\n        margin-top:50px;\n        margin-bottom:50px;\n        padding: 30px;\n        border: 5px solid #083f91;\n        border-top-left-radius: 30px;\n        border-bottom-right-radius: 30px;\n}\nfieldset legend{\n        font-weight: bold;\n        font-size: 25px;\n        color: #083f91;\n}\n\n", ""]);
 
 // exports
 
@@ -80649,10 +80668,47 @@ var render = function() {
                                 staticClass: "form-control",
                                 attrs: { type: "file", name: "image" },
                                 on: { change: _vm.onImageChange }
-                              }),
-                              _vm._v(" "),
-                              _c("img", { attrs: { src: "", alt: "image" } })
+                              })
                             ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-row",
+                        [
+                          _c(
+                            "b-col",
+                            { staticClass: "m-auto", attrs: { cols: "12" } },
+                            _vm._l(this.newAd.image, function(images, index) {
+                              return _c("span", { key: index }, [
+                                _c("div", { attrs: { id: "container" } }, [
+                                  _c(
+                                    "button",
+                                    {
+                                      attrs: { id: "x" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.close(index, $event)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                            X\n                                        "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("img", {
+                                    staticClass: "image",
+                                    attrs: { src: images, alt: "image" }
+                                  })
+                                ])
+                              ])
+                            }),
+                            0
                           )
                         ],
                         1
@@ -97301,7 +97357,7 @@ function postAd(credentials) {
     axios.post("api/auth/ad/new", credentials).then(function (response) {
       res(response.data);
     }).catch(function (error) {
-      rej("wrong email or password");
+      rej("une erreur s'est produite");
     });
   });
 }

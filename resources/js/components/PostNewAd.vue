@@ -28,10 +28,24 @@
                         <b-row>
                             <b-col class="m-auto" cols="8">
                                 <input type="file" @change="onImageChange" name="image" class="form-control">
-                                <img src="" alt="image">
                             </b-col>
                         </b-row>
-
+                        <b-row>
+                            <b-col  class="m-auto" cols="12">
+                                
+                                <span  v-bind:key="index" v-for="(images,index) in this.newAd.image">
+                                    <!-- <img class="image" :src="images" alt="image">
+                                    <button class="text-danger hi">x</button> -->
+                                    <!-- {{ index }} -->
+                                    <div id="container">
+                                            <button v-on:click="close(index,$event)" id = "x">
+                                                X
+                                            </button>
+                                            <img class="image" :src="images" alt="image">
+                                    </div>
+                                </span>
+                            </b-col>
+                        </b-row>
                         <b-row class="p-2">
                             <b-col class="m-auto" cols="8">
                                 <b-form-group id="input-group-2">
@@ -102,7 +116,7 @@ export default {
             user:this.$store.getters.currentUser,
             categories:[],
             newAd: {
-                image:'',
+                image:[],
                 title:'',
                 description:'',
                 price:0,
@@ -115,11 +129,15 @@ export default {
         this.fetchCategories();
     },
     methods:{
+            close(index,e){
+                e.preventDefault();
+                this.newAd.image.splice(index, 1);
+            },
             onImageChange(e) {
                 var fileReader=new FileReader();
                 fileReader.readAsDataURL(e.target.files[0]);
                 fileReader.onload=(e) => {
-                    this.newAd.image=e.target.result;
+                    this.newAd.image.push(e.target.result);
                 }
             },
             // createImage(file) {
@@ -157,32 +175,51 @@ export default {
             console.log(this.newAd);
             postAd(this.newAd)
             .then((res) => {
-                console.log("success");
-                // window.location.href="http://127.0.0.1:8001/";
-                // this.$router.push("/");
+                this.$bvToast.toast('votre publication a bien été publié', {
+                title: 'Message',
+                variant: "success",
+                solid: true
+                })
+                // window.location.href="http://127.0.0.1:8000/";
             })
             .catch((error) => {
                 console.log(error);
+                this.$bvToast.toast(error, {
+                title: 'Message',
+                variant: "danger",
+                solid: true
+                })
             })
-            // axios.post(apiDomain+'api/auth/ad/new', this.newAd,{
-            //         headers:{
-            //             'Authorization': AuthStr,
-            //             'X-Requested-With': 'XMLHttpRequest',
-            //             'Content-Type': 'application/json'
-            //         }
-            //     })
-            //     .then(response => {
-            //         res(response);
-            //     })
-            //     .catch(err => console.error(err));
 
-            //this.$router.push({path: '/'});
         }
     }
 }
 </script>
 
 <style>
+
+
+
+#container {
+    width: 30%;
+    border-radius: 25px;
+    border: 2px solid #A4D3EE;
+    /* padding: 15px 15px 15px 15px; */
+    margin: 20px 20px 20px 20px;
+    background: #A4D3EE;
+    overflow: visible;
+    box-shadow: 3px 3px 2px #888888;
+    position: relative;
+    display: inline-block;
+}
+
+#x {
+    position: absolute;
+    background: red;
+    color: white;
+    top: -10px;
+    right: -10px;
+}
     .margin{
         margin-top:10%;   
     }
@@ -196,6 +233,17 @@ export default {
     }
     .radius{
             border-radius: 1rem;
+    }
+    .hi{
+
+    }
+    .image{
+        width: 100%;
+        height: 16%;
+        margin: 1;
+        padding: 6px;
+        /* border: 1px solid gray; */
+        border-radius: 1.5rem;
     }
     .form{
         width: 60%;

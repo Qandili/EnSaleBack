@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ad;
+use File;
 use App\Models\Picture;
 use Illuminate\Http\Request;
 use App\Http\Resources\AdResource;
@@ -48,20 +49,26 @@ class AdController extends Controller
         $ad->user_id=$request->input('user_id');
         $ad->categorie_id=$request->input('categorie_id');
         $ad->save();
-        $exploded=explode(',',$reqImage);
-        $decoded=base64_decode($exploded[1]);
-        if(str_contains($exploded[0],'jpg' )|| str_contains($exploded[0],'jpeg')){
-            $extension="jpg";
-        }else if(str_contains($exploded[0],'png' )){
-            $extension="png";
-        }
-        $file_name=$ad->title.$ad->id.'.'.$extension;
-        $path=public_path().'/'.'serverImages'.'/'.$file_name;
-        file_put_contents($path,$decoded); 
-        $image=new Picture;
-        $image->file = $file_name;
-        $image->ad_id = $ad->id;
-        $image->save();
+        for($i=0;$i<count($reqImage);$i++){
+            $exploded=explode(',',$reqImage[$i]);
+            $decoded=base64_decode($exploded[1]);
+            if(str_contains($exploded[0],'jpg' )|| str_contains($exploded[0],'jpeg')){
+                $extension="jpg";
+            }else if(str_contains($exploded[0],'png' )){
+                $extension="png";
+            }
+            $file_name=$ad->title.$ad->id.'No'.$i.'.'.$extension;
+            if(!file_exists(public_path().'/'.'serverImages')){
+                $path = public_path().'/'.'serverImages';
+                File::makeDirectory($path, $mode = 0755, true, true);
+            }
+            $path=public_path().'/'.'serverImages'.'/'.$file_name;
+            file_put_contents($path,$decoded); 
+            $image=new Picture;
+            $image->file = $file_name;
+            $image->ad_id = $ad->id;
+            $image->save();
+        } 
         return new AdResource($ad);
     }
 
