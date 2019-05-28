@@ -1,9 +1,10 @@
 <template>
     <div>
         <navbar/>
-        <a class="card card-body mb-2 ad-body" v-for="categorie in categories" :key="categorie.id" @click="fetchAdsbyCategory(categorie.categorie_id)">
+        <a class="card card-body mb-2" v-for="categorie in categories" :key="categorie.id" @click="fetchAdsbyCategory(categorie.categorie_id)">
                 <h3>{{categorie.name}}</h3>
         </a>
+
     </div>
 </template>
 <script>

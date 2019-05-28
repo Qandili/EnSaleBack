@@ -9,7 +9,7 @@
         </div>
         <div class="data-list" v-show="!single_ad">
             <h4 class="big-title">Toutes les annonces</h4>
-            <a class="card card-body mb-2 ad-body" v-for="ad in ads" :key="ad.id" @click="showAd(ad.id)">
+            <a class="card card-body mb-2" v-for="ad in ads" :key="ad.id" @click="showAd(ad.id)">
                 <h3>{{ad.title}}</h3>
                 <ul>
                     <li>Prix: {{ad.price}}</li>
@@ -34,7 +34,7 @@
             </nav>
         </div>
 
-        <div class="card card-body mb-2 ad-body single-data" v-show="single_ad">
+        <div class="card card-body mb-2 single-data" v-show="single_ad">
             <h3>{{single_ad.title}}</h3>
             <ul>
                 <li>Prix: {{single_ad.price}}</li>
@@ -76,28 +76,15 @@
                 shares: 0
             }
         },
-        mounted(){
+        created(){
             //run automatically when the page loads
             this.fetchAds();
-            console.log(this.ads);
         },
         methods:{
             fetchAds(page_url){
                 var user=getLocalUser();
                 const AuthStr='Bearer '.concat(user.token);
-                page_url=page_url || 'api/auth/ads';
-                //     axios
-                // .get(page_url,{
-                //     headers:{
-                //         'Authorization': AuthStr,
-                //         'Content-Type': 'application/json',
-                //     }
-                // })
-                // .then(response => {
-                //     console.log(response.data);
-                //     this.ads=response.data;
-                //     this.makePagination(response.meta,response.links);
-                // }).catch(err => console.log(err));
+                page_url=page_url || 'api/auth/ads'
                 fetch(page_url,{
                     headers:{
                         'Authorization': AuthStr,
@@ -106,7 +93,7 @@
                 })
                 .then(res=>res.json())
                 .then(res=>{
-                    console.log(res.data);
+                    //console.log(res.data);
                     this.ads=res.data;
                     this.makePagination(res.meta,res.links);
                 })
@@ -150,10 +137,6 @@
         color: #2699fb;
         text-decoration: underline;
     }
-    .ad-body{
-        border: 1px solid #bce0fd;
-    }
-
     a.card,a.card:hover {
         color: inherit;
         text-decoration: none;

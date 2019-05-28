@@ -1841,10 +1841,9 @@ __webpack_require__.r(__webpack_exports__);
       shares: 0
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     //run automatically when the page loads
     this.fetchAds();
-    console.log(this.ads);
   },
   methods: {
     fetchAds: function fetchAds(page_url) {
@@ -1852,19 +1851,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var user = Object(_Helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
       var AuthStr = 'Bearer '.concat(user.token);
-      page_url = page_url || 'api/auth/ads'; //     axios
-      // .get(page_url,{
-      //     headers:{
-      //         'Authorization': AuthStr,
-      //         'Content-Type': 'application/json',
-      //     }
-      // })
-      // .then(response => {
-      //     console.log(response.data);
-      //     this.ads=response.data;
-      //     this.makePagination(response.meta,response.links);
-      // }).catch(err => console.log(err));
-
+      page_url = page_url || 'api/auth/ads';
       fetch(page_url, {
         headers: {
           'Authorization': AuthStr,
@@ -1873,7 +1860,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
-        console.log(res.data);
+        //console.log(res.data);
         _this.ads = res.data;
 
         _this.makePagination(res.meta, res.links);
@@ -1924,6 +1911,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Helpers_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Helpers/auth */ "./resources/js/Helpers/auth.js");
+//
 //
 //
 //
@@ -36891,7 +36879,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.data-list,.most-watched,.by-category,.single-data{\n    margin: auto;\n    width: 80%;\n}\n.big-title{\n    color: #2699fb;\n    text-decoration: underline;\n}\n.ad-body{\n    border: 1px solid #bce0fd;\n}\na.card,a.card:hover {\n    color: inherit;\n    text-decoration: none;\n}\n.reactions li{\n    display: inline-block;\n    list-style-type: none;\n    position: relative;left: 88%;bottom: 0%;\n}\n.single-data{\n    height: 247px;\n}\n", ""]);
+exports.push([module.i, "\n.data-list,.most-watched,.by-category,.single-data{\n    margin: auto;\n    width: 80%;\n}\n.big-title{\n    color: #2699fb;\n    text-decoration: underline;\n}\na.card,a.card:hover {\n    color: inherit;\n    text-decoration: none;\n}\n.reactions li{\n    display: inline-block;\n    list-style-type: none;\n    position: relative;left: 88%;bottom: 0%;\n}\n.single-data{\n    height: 247px;\n}\n", ""]);
 
 // exports
 
@@ -36910,7 +36898,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#container {\n    width: 30%;\n    border-radius: 25px;\n    border: 2px solid #A4D3EE;\n    /* padding: 15px 15px 15px 15px; */\n    margin: 20px 20px 20px 20px;\n    background: #A4D3EE;\n    overflow: visible;\n    box-shadow: 3px 3px 2px #888888;\n    position: relative;\n    display: inline-block;\n}\n#x {\n    position: absolute;\n    background: red;\n    color: white;\n    top: -10px;\n    right: -10px;\n}\n.margin{\n        margin-top:10%;\n}\n    /* .back{\n        background-image: url(\"https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png\");\n    } */\n.big-title{\n        margin-left: 10%;\n        color: #2699fb;\n        text-decoration: underline;\n}\n.radius{\n            border-radius: 1rem;\n}\n.hi{\n}\n.image{\n        width: 100%;\n        height: 16%;\n        margin: 1;\n        padding: 6px;\n        /* border: 1px solid gray; */\n        border-radius: 1.5rem;\n}\n.form{\n        width: 60%;\n        margin: auto;\n        margin-top:50px;\n        margin-bottom:50px;\n        padding: 30px;\n        border: 5px solid #083f91;\n        border-top-left-radius: 30px;\n        border-bottom-right-radius: 30px;\n}\nfieldset legend{\n        font-weight: bold;\n        font-size: 25px;\n        color: #083f91;\n}\n\n", ""]);
+exports.push([module.i, "\n#container {\n    width: 30%;\n    border-radius: 25px;\n    border: 2px solid #A4D3EE;\n    /* padding: 15px 15px 15px 15px; */\n    margin: 20px 20px 20px 20px;\n    background: #A4D3EE;\n    overflow: visible;\n    box-shadow: 3px 3px 2px #888888;\n    position: relative;\n    display: inline-block;\n}\n#x {\n    position: absolute;\n    background: indianred;\n    color: white;\n    top: -10px;\n    right: -10px;\n}\n.margin{\n        margin-top:10%;\n}\n    /* .back{\n        background-image: url(\"https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png\");\n    } */\n.big-title{\n        margin-left: 10%;\n        color: #2699fb;\n        text-decoration: underline;\n}\n.radius{\n            border-radius: 1rem;\n}\n.image{\n        width: 100%;\n        height: 16%;\n        margin: 1;\n        padding: 6px;\n        /* border: 1px solid gray; */\n        border-radius: 1.5rem;\n}\n.form{\n        width: 60%;\n        margin: auto;\n        margin-top:50px;\n        margin-bottom:50px;\n        padding: 30px;\n        border: 5px solid #083f91;\n        border-top-left-radius: 30px; \n        border-bottom-right-radius: 30px;\n}\nfieldset legend{\n        font-weight: bold;\n        font-size: 25px;\n        color: #083f91;\n}\n\n", ""]);
 
 // exports
 
@@ -80233,7 +80221,7 @@ var render = function() {
               "a",
               {
                 key: ad.id,
-                staticClass: "card card-body mb-2 ad-body",
+                staticClass: "card card-body mb-2",
                 on: {
                   click: function($event) {
                     return _vm.showAd(ad.id)
@@ -80333,7 +80321,7 @@ var render = function() {
               expression: "single_ad"
             }
           ],
-          staticClass: "card card-body mb-2 ad-body single-data"
+          staticClass: "card card-body mb-2 single-data"
         },
         [
           _c("h3", [_vm._v(_vm._s(_vm.single_ad.title))]),
@@ -80459,7 +80447,7 @@ var render = function() {
           "a",
           {
             key: categorie.id,
-            staticClass: "card card-body mb-2 ad-body",
+            staticClass: "card card-body mb-2",
             on: {
               click: function($event) {
                 return _vm.fetchAdsbyCategory(categorie.categorie_id)

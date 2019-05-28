@@ -215,7 +215,7 @@ export default {
 
 #x {
     position: absolute;
-    background: red;
+    background: indianred;
     color: white;
     top: -10px;
     right: -10px;
@@ -234,9 +234,6 @@ export default {
     .radius{
             border-radius: 1rem;
     }
-    .hi{
-
-    }
     .image{
         width: 100%;
         height: 16%;
@@ -252,7 +249,7 @@ export default {
         margin-bottom:50px;
         padding: 30px;
         border: 5px solid #083f91;
-        border-top-left-radius: 30px;
+        border-top-left-radius: 30px; 
         border-bottom-right-radius: 30px;
     }
     fieldset legend{
