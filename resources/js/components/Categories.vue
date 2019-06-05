@@ -1,9 +1,11 @@
 <template>
     <div>
         <navbar/>
-        <a class="card card-body mb-2 ad-body" v-for="categorie in categories" :key="categorie.id" @click="fetchAdsbyCategory(categorie.categorie_id)">
-                <h3>{{categorie.name}}</h3>
-        </a>
+        <div class="categories">
+            <a class="mb-2 category-body" v-for="categorie in categories" :key="categorie.id" @click="fetchAdsbyCategory(categorie.categorie_id)">
+                    <h4>{{categorie.name}}</h4>
+            </a>
+        </div>
     </div>
 </template>
 <script>
@@ -44,4 +46,23 @@
         }
     }
 </script>
+<style>
+    .categories{
+        margin-top: 3%;
+        position: relative;left:8%;
+    }
+    .category-body{
+        float: left;
+        width: 25%;
+        margin: 1.5%;
+        background-color: #083f91;
+        padding: 1%;
+        border-top-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+    .category-body h4{
+        color: white;
+        text-align: center;
+    }
+</style>
 
