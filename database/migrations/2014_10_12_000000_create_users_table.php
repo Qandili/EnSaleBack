@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone_number');
+            $table->string('address');
+            $table->string('city');
             $table->date('birth_date',200);
             $table->boolean('confirmed_account');
             $table->boolean('isAdmin');

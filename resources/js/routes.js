@@ -1,5 +1,6 @@
 
 import Ads from './components/Ads.vue';
+import Ad from './components/Ad.vue';
 import PostNewAd from './components/PostNewAd.vue';
 import Categories from './components/Categories.vue';
 import Login from './components/auth/Login.vue';

@@ -7,6 +7,7 @@ use File;
 use App\Models\Picture;
 use Illuminate\Http\Request;
 use App\Http\Resources\AdResource;
+use App\Http\Resources\PictureResource;
 
 class AdController extends Controller
 {
@@ -82,8 +83,13 @@ class AdController extends Controller
     {
         //Get ad
         $ad=Ad::findOrFail($request->id);
-        //Return single article as a resource
-        return new AdResource($ad);
+        //Get pictures
+        $pictures=Picture::all()->where('ad_id',$request->id);
+        //Return single ad and a collection of pictures as a resource
+        return response()->json(array(
+            'ad' => new AdResource($ad),
+            'pictures' => PictureResource::collection($pictures),
+        ));
     }
 
     /**
@@ -118,8 +124,8 @@ class AdController extends Controller
     public function destroy(Ad $ad)
     {
          //Get ad
-         $ad=Ad::findOrFail($ad);
-         if($ad->each->delete())
+        $ad=Ad::findOrFail($ad);
+        if($ad->each->delete())
             return new AdResource($ad);
     }
 }

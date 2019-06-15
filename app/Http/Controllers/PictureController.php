@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Picture;
 use Illuminate\Http\Request;
+use App\Http\Resources\PictureResource;
 
 class PictureController extends Controller
 {
@@ -12,7 +13,7 @@ class PictureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
     }
@@ -44,9 +45,9 @@ class PictureController extends Controller
      * @param  \App\Picture  $picture
      * @return \Illuminate\Http\Response
      */
-    public function show(Picture $picture)
+    public function show(Request $request)
     {
-        //
+    
     }
 
     /**

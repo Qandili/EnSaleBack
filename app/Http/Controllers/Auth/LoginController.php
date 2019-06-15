@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\User;
+use Hash;
+
 class LoginController extends Controller
 {
     /**
@@ -20,18 +22,14 @@ class LoginController extends Controller
     public function signup(Request $request)
     {
         $request->validate([
-            'first_name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed'
         ]);
-        $user = new User([
-            'firstname' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
+        $user = User::findOrFail($request->id);
+        $user->confirmed_account=1;
+        $user->password=Hash::make($request->password);
         $user->save();
         return response()->json([
-            'message' => 'Successfully created user!'
+            'message' => 'Successfully Verified user!'
         ], 201);
     }
     /**
@@ -57,7 +55,7 @@ class LoginController extends Controller
                 'message' => 'Unauthorized'
             ], 401);
         $user = $request->user();
-        // dd($user);
+            if($user->confirmed_account==1){
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
         if ($request->remember_me)
@@ -71,6 +69,13 @@ class LoginController extends Controller
             )->toDateTimeString(),
             'user'=>$user
         ]);
+    }
+    else if($user->confirmed_Account==0){
+        return response()->json([
+            'user'=>$user,
+            "response"=> "unconfirmed_account"
+        ]);
+    }
     }
     /**
      * Logout user (Revoke the token)

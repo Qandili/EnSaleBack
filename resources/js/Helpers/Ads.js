@@ -5,7 +5,8 @@ export function postAd(credentials){
             res(response.data);
         })
         .catch(function (error) {
-            rej("une erreur s'est produite");
+            rej("Une erreur s'est produite");
         })
-        })
+    })
 }
+

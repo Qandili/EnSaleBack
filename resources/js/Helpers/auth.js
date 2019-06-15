@@ -14,6 +14,18 @@ export function login(credentials){
         })
         })
 }
+export function verify(credentials){
+    return new Promise((res,rej) =>{
+        axios.put("api/auth/signup", credentials)
+        .then((response) => {
+            setAuthorization(response.data.access_token);
+            res(response.data);
+        })
+        .catch(function (error) {
+            rej("An error was occured");
+        })
+        })
+}
 export function Logout(){
     var user=getLocalUser();
     const AuthStr='Bearer '.concat(user.token);

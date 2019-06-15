@@ -21,12 +21,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Auth::routes();
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'Auth\LoginController@login');
-    Route::post('signup', 'Auth\LoginController@signup');
+    Route::put('signup', 'Auth\LoginController@signup');
     Route::group(['middleware' => 'auth:api'], function() {
         //*******************Ads
         //List ads
         Route::get('ads','AdController@index');
-        //List single ad
+        //Get single ad
         Route::get('ad/{id}','AdController@show');
         //Post new ad
         Route::post('ad/new','AdController@store');
@@ -37,7 +37,9 @@ Route::group(['prefix' => 'auth'], function () {
         //*******************Categories
         //List categories
         Route::get('categories','CategorieController@index');
-        Route::get('ads','AdController@index');
+        //*******************Users
+        //Get single user
+        Route::get('user/{id}','UserController@show');
         Route::get('profile','ProfileController@index');
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');

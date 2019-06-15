@@ -23,6 +23,8 @@ $factory->define(User::class, function (Faker $faker) {
         'last_name'  => $faker->lastName,
         'email'  => $faker->unique()->safeEmail,
         'phone_number'  => $faker->phoneNumber,
+        'address' =>$faker->Address,
+        'city' =>$faker->City,
         'birth_date'  => '1998-01-12',
         'confirmed_account'  => 0,
         'isAdmin'  => 0,

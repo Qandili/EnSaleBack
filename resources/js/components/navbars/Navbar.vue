@@ -5,7 +5,7 @@
             <router-link to="/" class="navbar-brand">Annonces</router-link>
             <router-link to="/categories" class="navbar-brand">Catégories</router-link>
             <a href="#" class="navbar-brand">Contacter nous</a>
-            <router-link to="/newad" class="navbar-brand">Déposer une annonce</router-link>
+            <router-link to="/newad" class="navbar-brand" data-toggle="modal" data-target="#myModal">Déposer une annonce</router-link>
             <a href="#" class="navbar-brand"><img src="" alt=""></a>
         </div>
         <div>
@@ -16,7 +16,7 @@
                 <b-dropdown-divider></b-dropdown-divider>
                 <b-dropdown-item @click="logout"  active>Logout</b-dropdown-item>
             </b-dropdown>
-        </div>
+        </div>  
     </nav>
 </template>
 <script>

@@ -1,12 +1,13 @@
 import { getLocalUser,Logout } from "./Helpers/auth";
 
 const user=getLocalUser();
+const display_ad='';
 export default{
     state:{
         currentUser:user,
         isLoggedIn: !!user,
         loading: false,
-        auth_error:null
+        auth_error:null,
     },
     mutations:{
         login(state){

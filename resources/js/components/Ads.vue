@@ -2,20 +2,18 @@
     <div>
         <navbar/>
         <div class="most-watched">
-            <h4 class="big-title">Les plus vues</h4>
+            <h5 class="big-title">Les plus vues</h5>
         </div>
         <div class="by-category">
-            <h4 class="big-title">Naviguer par catégorie</h4>
+            <h5 class="big-title">Naviguer par catégorie</h5>
         </div>
         <div class="data-list" v-show="!single_ad">
-            <h4 class="big-title">Toutes les annonces</h4>
+            <h5 class="big-title">Toutes les annonces</h5>
             <a class="card card-body mb-2" v-for="ad in ads" :key="ad.id" @click="showAd(ad.id)">
-                <h3>{{ad.title}}</h3>
-                <ul>
-                    <li>Prix: {{ad.price}}</li>
-                    <li>Catégorie: {{ad.categorie_id}}</li>
-                </ul>
-                <b>{{ad.created_at}}</b>
+                <div class="dateTime">{{ad.created_at}}</div>
+                <h5 class="card-title">{{ad.title}}</h5>
+                <span>{{getCity(ad.user_id)}}</span>
+                <b class="price">{{ad.price}} DH&emsp;<i class="fas fa-money-bill-wave"></i></b>
             </a>
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
@@ -33,42 +31,48 @@
                 </ul>
             </nav>
         </div>
-
-        <div class="card card-body mb-2 single-data" v-show="single_ad">
-            <h3>{{single_ad.title}}</h3>
-            <ul>
-                <li>Prix: {{single_ad.price}}</li>
-                <li>Catégorie: {{single_ad.categorie_id}}</li>
-                <li>Propriétaire: {{single_ad.user_id}}</li>
-            </ul>
-            <p>{{single_ad.description}}</p>
-            <b>{{single_ad.created_at}}</b>
-            <ul class="reactions">
-                <li><a @click="likes++"><i class="far fa-thumbs-up"></i> {{likes}}</a></li>&emsp;
-                <li><a @click="comment()"><i class="far fa-comment-dots"></i> {{comments}}</a></li>&emsp;
-                <li><a @click="share()"><i class="fas fa-share"></i> {{shares}}</a></li>
-            </ul>  
-        </div>
+        <child-component :display_ad="display_ad" v-show="single_ad"></child-component>
     </div>
 </template>
 <script>
-    import {getLocalUser} from '../Helpers/auth' 
+    import {getLocalUser} from '../Helpers/auth';
+    import Ad from './Ad';
+    
     export default {
+        components:{
+            'child-component': Ad,
+        },
         data(){
             return{
                 ads:[],
                 single_ad:'',
+                display_ad:'',
                 ad:{
                     id:'',
                     description:'',
                     price:'',
                     sold:'',
                     title:'',
-                    student:'',
-                    categorie:'',
-                    created_at:''
+                    user_id:'',
+                    categorie_id:'',
+                    created_at:'',
                 },
-                ad_id:'',
+                picture:{
+                    id:'',
+                    file:'',
+                    ad_id:''
+                },
+                user: {
+                    id:'',
+                    cne:'',
+                    email:'',
+                    first_name:'',
+                    last_name:'',
+                    phone_number:'',
+                    address:'',
+                    city:'',
+                    bith_date:''
+                },
                 pagination:{},
                 edit:false,
                 likes: 0,
@@ -76,7 +80,7 @@
                 shares: 0
             }
         },
-        created(){
+        mounted(){
             //run automatically when the page loads
             this.fetchAds();
         },
@@ -84,7 +88,7 @@
             fetchAds(page_url){
                 var user=getLocalUser();
                 const AuthStr='Bearer '.concat(user.token);
-                page_url=page_url || 'api/auth/ads'
+                page_url=page_url || 'api/auth/ads';
                 fetch(page_url,{
                     headers:{
                         'Authorization': AuthStr,
@@ -111,7 +115,25 @@
             showAd(id){
                 var user=getLocalUser();
                 const AuthStr='Bearer '.concat(user.token);
-                fetch('api/auth/ad/'+id,{
+                this.single_ad='notempty';
+                return new Promise((res,rej) =>{
+                    axios.get('api/auth/ad/'+id,{
+                        headers:{
+                            'Authorization': AuthStr,
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                    .then( response => {
+                        console.log(response.data);
+                        this.display_ad=response.data;
+                    })
+                    .catch(err => console.log(err));
+                })
+            },
+            getCity(id){
+                var user=getLocalUser();
+                const AuthStr='Bearer '.concat(user.token);
+                fetch('api/auth/user/'+id,{
                     headers:{
                         'Authorization': AuthStr,
                         'Content-Type': 'application/json',
@@ -119,35 +141,42 @@
                 })
                 .then(res=>res.json())
                 .then(res=>{
-                    //console.log(res.data);
-                    this.single_ad=res.data;
-                    })
-                    .catch(err => console.log(err));
+                    console.log(res.data);
+                    return res.data;
+                })
+                .catch(err => console.log(err));
             }
-
         }
     }
 </script>
 <style>
-    .data-list,.most-watched,.by-category,.single-data{
+    .most-watched,.by-category,.data-list{
         margin: auto;
         width: 80%;
     }
-    .big-title{
+    .most-watched .big-title,.by-category .big-title,.data-list .big-title{
         color: #2699fb;
         text-decoration: underline;
+        margin-left: 0%;
     }
+
+    .ad-body{
+        border: 5px solid #bce0fd;
+        height: 13%;
+    }
+
     a.card,a.card:hover {
         color: inherit;
         text-decoration: none;
     }
-    .reactions li{
-        display: inline-block;
-        list-style-type: none;
-        position: relative;left: 88%;bottom: 0%;
-    }
-    .single-data{
-        height: 247px;
+
+    .dateTime{
+        position: absolute;right: 5%;top:50%;
+        /*border: 2px dashed #083f91;*/
+        padding: 1px 20px 1px 20px;
+        border-radius: 10px;
+        background-color: rgb(235, 192, 74);
+        color: white;
     }
 </style>
 
