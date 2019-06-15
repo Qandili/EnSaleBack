@@ -2608,6 +2608,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -81687,6 +81688,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("p", { staticClass: "text-center text-danger" }, [
                   _vm._v("Vous devez vérifier votre compte")
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-center text-danger" }, [
+                  _vm._v("Entrer votre nouveau mot de passe")
                 ]),
                 _vm._v(" "),
                 _c("form", { staticClass: "mt-5", attrs: { action: "" } }, [

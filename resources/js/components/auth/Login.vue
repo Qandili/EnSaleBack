@@ -42,6 +42,7 @@
                         <img class="m-auto" width="100" height="100" src="https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png">
                     </div>
                     <p class="text-center text-danger">Vous devez vérifier votre compte</p>
+                    <p class="text-center text-danger">Entrer votre nouveau mot de passe</p>                    
                     <form class="mt-5" action="">
 
                         <label for="Password">Mot de passe</label>
