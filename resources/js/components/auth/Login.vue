@@ -1,70 +1,72 @@
 <template>
     <div>
         <navbar/>
-        <div class="container bg-light">
-            <div v-if="confirmed" class="row mt-5 border border-1">
+        <div class="container">
+            <div v-if="confirmed" class="row mt-5">
                 <div class="col-lg-4 col-md-12 mt-5">
-                    <div class="row mt-9">
-                        <img class="m-auto" width="100" height="100" src="https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png">
+                    <div class="row mt-6">
+                        <!--<img class="m-auto" width="100" height="100" src="https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png">-->
+                        <span class="hello-message">Bienvenue dans EnSale</span>
                     </div>
                     <!-- <input  name="email" type="text">
                     <span>{{ errors.first('email') }}</span> -->
 
-                    <form class="mt-5" action="">
-                        <label for="Email">Email address</label>
-                        <input name="email" v-validate="'required|email'" v-model="credentials.email" type="email" required class="form-control mb-2 round" id="" placeholder="Email ou CNE">
+                    <form class="mt-5 login-form" action="">
+                        <!--<label for="Email">Email address</label>-->
+                        <input name="email" v-validate="'required|email'" v-model="credentials.email" type="email" required class="mb-2" id="" placeholder="Email">
                         <span class="text-danger d-block">{{ errors.first('email') }}</span>
-                        <label for="Password">Mot de passe</label>
-                        <input  name="password" v-validate="'required'" v-model="credentials.password" type="password" required class="form-control  mb-2 round" id="" placeholder="Mot de pass">
+                        <!--<label for="Password">Mot de passe</label>-->
+                        <input  name="password" v-validate="'required'" v-model="credentials.password" type="password" required class="mb-2" id="" placeholder="Mot de passe">
                         <span class="text-danger">{{ errors.first('password') }}</span>
                         <p class="text-danger">{{ this.msg }}</p>
                     </form>
-                    <div class="row mt-3">
-                        <div class="col-12 text-center">
+                    <div class="row mt-3 login-button">
+                        <div class="col-6 text-center">
                             <button @click="logIn()" class="btn btn-primary">Se connecter</button>
                             <!-- <input type="submit" value="Login"> -->
-                            <button @click="confirm()" class="btn btn-success">Confirmer votre compte</button>
+                            <!--<button @click="confirm()" class="btn btn-success">Confirmer votre compte</button>-->
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-12 text-center">
-                            <a href="#">mot de passe oublié?</a>
+                    <div class="row mt-2 login-link">
+                        <div class="col-7 text-center">
+                            <a href="#">Mot de passe oublié?</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-12 m-0 p-0">
-                    <img height="70%" width="100%" src="http://www.fcensas.com/template/img/slider/ensas-pano.jpg" alt="">
+                <div class="background-image">
+                    <img height="70%" width="100%" src="e-commerce.png" alt="">
                 </div>
             </div>
-            <div v-else-if="!confirmed" class="row mt-5 border border-1">
+            <div v-else-if="!confirmed" class="row mt-5">
                 <div class="col-lg-4 col-md-12 mt-5">
-                    <div class="row mt-9">
+                    <!--<div class="row mt-9">
                         <img class="m-auto" width="100" height="100" src="https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png">
+                    </div>-->
+                    <div class="row mt-6">
+                        <!--<img class="m-auto" width="100" height="100" src="https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png">-->
+                        <span class="hello-message">Compte vérifié. Bienvenue parmi nous :)</span>
                     </div>
-                    <p class="text-center text-danger">Vous devez vérifier votre compte</p>
-                    <p class="text-center text-danger">Entrer votre nouveau mot de passe</p>                    
-                    <form class="mt-5" action="">
-
-                        <label for="Password">Mot de passe</label>
-                        <input  name="password" v-validate="'required'" v-model="credentials.password" type="password" required class="form-control  mb-2 round" id="" placeholder="Mot de pass">
-                        <label for="Password">confirmer votre Mot de passe</label>
-                        <input  name="password_confirmation" v-validate="'required'" v-model="credentials.password_confirmation" type="password" required class="form-control  mb-2 round" id="" placeholder="confirmer votre Mot de pass">
+                    <form class="mt-5 login-form" action="">
+                        <!--<label for="Password">Mot de passe</label>-->
+                        <input  name="password" v-validate="'required'" v-model="credentials.password" type="password" required class="mb-2" id="" placeholder="Nouveau mot de passe">
+                        <!--<label for="Password">Confirmer votre mot de passe</label>-->
+                        <input  name="password_confirmation" v-validate="'required'" v-model="credentials.password_confirmation" type="password" required class="mb-2" id="" placeholder="Confirmer votre mot de passe">
                         <span class="text-danger">{{ errors.first('password') }}</span>
                         <p class="text-danger">{{ this.msg }}</p>
                     </form>
-                    <div class="row mt-3">
-                        <div class="col-12 text-center">
-                            <button @click="confirm()" class="btn btn-success">Confirmer votre compte</button>
+                    <div class="row mt-3 login-button">
+                        <div class="col-6 text-center">
+                            <button @click="confirm()" class="btn btn-success">Confirmer</button>
                         </div>
                     </div>
-                    <div class="row mt-2">
+                    <!--<div class="row mt-2">
                         <div class="col-12 text-center">
                             <a href="#">mot de passe oublié?</a>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
-                <div class="col-lg-8 col-md-12 m-0 p-0">
-                    <img height="70%" width="100%" src="http://www.fcensas.com/template/img/slider/ensas-pano.jpg" alt="">
+                <div class="background-image">
+                    <img height="70%" width="100%" src="e-commerce.png" alt="">
                 </div>
             </div>
         </div>
@@ -176,6 +178,62 @@
     #img{
         width: 100%;
         height:100%;
+    }
+
+    .hello-message{
+        font-size: 50px;
+        color: #083f91;
+    }
+
+    .login-form input{
+        border: none;
+        border-bottom: 2px solid #083f91;
+        height: 40px;
+        width: 100%;
+        margin: 5%;
+    }
+
+    .login-button .btn-primary{
+        color: #2699fb;
+        letter-spacing: 1px;
+        line-height: 25px;
+        border: 2px solid #2699fb;
+        border-radius: 40px;
+        background: transparent;
+        transition: all 0.3s ease 0s;
+    }
+
+    .login-button .btn-primary:hover {
+        color: #FFF;
+        background: #2699fb;
+        border: 2px solid #2699fb;
+    }
+
+    .login-button .btn-success{
+        color: #3cdd57;
+        letter-spacing: 1px;
+        line-height: 25px;
+        border: 2px solid #3cdd57;
+        border-radius: 40px;
+        background: transparent;
+        transition: all 0.3s ease 0s;
+    }
+
+    .login-button .btn-success:hover {
+        color: #FFF;
+        background: #3cdd57;
+        border: 2px solid #3cdd57;
+    }
+
+    .login-link a{
+        color: #2699fb;
+    }
+
+    .background-image{
+        margin-left: 14%;
+        margin-top: 1%;
+        width: 600px;
+        height: 900px;
     }
 </style>
 

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categorie;
+use App\Models\Ad;
 use Illuminate\Http\Request;
 use App\Http\Resources\CategorieResource;
+use App\Http\Resources\AdResource;
 
 
 class CategorieController extends Controller
@@ -49,9 +51,12 @@ class CategorieController extends Controller
      * @param  \App\Categorie  $categorie
      * @return \Illuminate\Http\Response
      */
-    public function show(Categorie $categorie)
+    public function show(Request $request)
     {
-        //
+        //Get ads
+        $ads=Ad::where('categorie_id',$request->id)->paginate(5);
+        //Return single ad and a collection of pictures as a resource
+        return AdResource ::collection($ads);
     }
 
     /**

@@ -37,6 +37,8 @@ Route::group(['prefix' => 'auth'], function () {
         //*******************Categories
         //List categories
         Route::get('categories','CategorieController@index');
+        //List ads by category
+        Route::get('categorie/{id}','CategorieController@show');
         //*******************Users
         //Get single user
         Route::get('user/{id}','UserController@show');

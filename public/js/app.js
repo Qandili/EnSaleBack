@@ -1994,6 +1994,31 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Helpers_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Helpers/auth */ "./resources/js/Helpers/auth.js");
+/* harmony import */ var _Ad__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Ad */ "./resources/js/components/Ad.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2005,14 +2030,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    'child-component': _Ad__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
       categories: [],
+      single_ad: '',
+      single_categorie: '',
+      categorieId: '',
+      display_ad: '',
+      categorieName: '',
       categorie: {
         id: '',
         name: ''
-      }
+      },
+      ads: [],
+      ad: {
+        id: '',
+        description: '',
+        price: '',
+        sold: '',
+        title: '',
+        user_id: '',
+        categorie_id: '',
+        created_at: ''
+      },
+      pagination: {}
     };
   },
   created: function created() {
@@ -2038,8 +2084,59 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(err);
       });
     },
-    fetchAdsbyCategory: function fetchAdsbyCategory(id) {
-      alert(id);
+    fetchAdsbyCategory: function fetchAdsbyCategory(id, name, page_url) {
+      var _this2 = this;
+
+      var user = Object(_Helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
+      var AuthStr = 'Bearer '.concat(user.token);
+      this.single_categorie = 'notempty';
+      this.categorieId = id;
+      this.categorieName = name;
+      page_url = page_url || 'api/auth/categorie/' + id;
+      fetch(page_url, {
+        headers: {
+          'Authorization': AuthStr,
+          'Content-Type': 'application/json'
+        }
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        //console.log(res.data);
+        _this2.ads = res.data;
+
+        _this2.makePagination(res.meta, res.links);
+      }).catch(function (err) {
+        return console.log(err);
+      });
+    },
+    makePagination: function makePagination(meta, links) {
+      var pagination = {
+        current_page: meta.current_page,
+        last_page: meta.last_page,
+        next_page_url: links.next,
+        prev_page_url: links.prev
+      };
+      this.pagination = pagination;
+    },
+    showAd: function showAd(id) {
+      var _this3 = this;
+
+      var user = Object(_Helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
+      var AuthStr = 'Bearer '.concat(user.token);
+      this.single_ad = 'notempty';
+      return new Promise(function (res, rej) {
+        axios.get('api/auth/ad/' + id, {
+          headers: {
+            'Authorization': AuthStr,
+            'Content-Type': 'application/json'
+          }
+        }).then(function (response) {
+          console.log(response.data);
+          _this3.display_ad = response.data;
+        }).catch(function (err) {
+          return console.log(err);
+        });
+      });
     }
   }
 });
@@ -2609,6 +2706,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2729,6 +2828,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Helpers_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Helpers/auth */ "./resources/js/Helpers/auth.js");
+//
 //
 //
 //
@@ -25522,7 +25622,7 @@ exports.hasPointerEventSupport = hasPointerEventSupport;
 
 var getEnv = function getEnv(key) {
   var fallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var env = typeof process !== 'undefined' && process ? Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}) || false : {};
+  var env = typeof process !== 'undefined' && process ? Object({"MIX_PUSHER_APP_CLUSTER":"mt1","MIX_PUSHER_APP_KEY":"","NODE_ENV":"development"}) || false : {};
 
   if (!key) {
     /* istanbul ignore next */
@@ -37066,7 +37166,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#container {\n    width: 30%;\n    border-radius: 25px;\n    border: 2px solid #A4D3EE;\n    /* padding: 15px 15px 15px 15px; */\n    margin: 20px 20px 20px 20px;\n    background: #A4D3EE;\n    overflow: visible;\n    box-shadow: 3px 3px 2px #888888;\n    position: relative;\n    display: inline-block;\n}\n#x {\n    position: absolute;\n    background: red;\n    color: white;\n    top: -10px;\n    right: -10px;\n}\n.margin{\n        margin-top:10%;\n}\n    /* .back{\n        background-image: url(\"https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png\");\n    } */\n.big-title{\n        margin-left: 10%;\n        color: #2699fb;\n        text-decoration: underline;\n}\n.radius{\n            border-radius: 1rem;\n}\n.image{\n        width: 100%;\n        height: 16%;\n        margin: 1;\n        padding: 6px;\n        /* border: 1px solid gray; */\n        border-radius: 1.5rem;\n}\n.form{\n        width: 60%;\n        margin: auto;\n        margin-top:50px;\n        margin-bottom:50px;\n        padding: 30px;\n        border: 5px solid #083f91;\n        border-top-left-radius: 30px;\n        border-bottom-right-radius: 30px;\n}\nfieldset legend{\n        font-weight: bold;\n        font-size: 25px;\n        color: #083f91;\n}\n\n", ""]);
+exports.push([module.i, "\n#container {\r\n    width: 30%;\r\n    border-radius: 25px;\r\n    border: 2px solid #A4D3EE;\r\n    /* padding: 15px 15px 15px 15px; */\r\n    margin: 20px 20px 20px 20px;\r\n    background: #A4D3EE;\r\n    overflow: visible;\r\n    box-shadow: 3px 3px 2px #888888;\r\n    position: relative;\r\n    display: inline-block;\n}\n#x {\r\n    position: absolute;\r\n    background: red;\r\n    color: white;\r\n    top: -10px;\r\n    right: -10px;\n}\n.margin{\r\n        margin-top:10%;\n}\r\n    /* .back{\r\n        background-image: url(\"https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png\");\r\n    } */\n.big-title{\r\n        margin-left: 10%;\r\n        color: #2699fb;\r\n        text-decoration: underline;\n}\n.radius{\r\n            border-radius: 1rem;\n}\n.image{\r\n        width: 100%;\r\n        height: 16%;\r\n        margin: 1;\r\n        padding: 6px;\r\n        /* border: 1px solid gray; */\r\n        border-radius: 1.5rem;\n}\n.form{\r\n        width: 60%;\r\n        margin: auto;\r\n        margin-top:50px;\r\n        margin-bottom:50px;\r\n        padding: 30px;\r\n        border: 5px solid #083f91;\r\n        border-top-left-radius: 30px;\r\n        border-bottom-right-radius: 30px;\n}\nfieldset legend{\r\n        font-weight: bold;\r\n        font-size: 25px;\r\n        color: #083f91;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -37104,7 +37204,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.mt-9{\n    margin-top: 35px;\n}\n#img{\n    width: 100%;\n    height:100%;\n}\n", ""]);
+exports.push([module.i, "\n.mt-9{\n    margin-top: 35px;\n}\n#img{\n    width: 100%;\n    height:100%;\n}\n.hello-message{\n    font-size: 50px;\n    color: #083f91;\n}\n.login-form input{\n    border: none;\n    border-bottom: 2px solid #083f91;\n    height: 40px;\n    width: 100%;\n    margin: 5%;\n}\n.login-button .btn-primary{\n    color: #2699fb;\n    letter-spacing: 1px;\n    line-height: 25px;\n    border: 2px solid #2699fb;\n    border-radius: 40px;\n    background: transparent;\n    transition: all 0.3s ease 0s;\n}\n.login-button .btn-primary:hover {\n    color: #FFF;\n    background: #2699fb;\n    border: 2px solid #2699fb;\n}\n.login-button .btn-success{\n    color: #3cdd57;\n    letter-spacing: 1px;\n    line-height: 25px;\n    border: 2px solid #3cdd57;\n    border-radius: 40px;\n    background: transparent;\n    transition: all 0.3s ease 0s;\n}\n.login-button .btn-success:hover {\n    color: #FFF;\n    background: #3cdd57;\n    border: 2px solid #3cdd57;\n}\n.login-link a{\n    color: #2699fb;\n}\n.background-image{\n    margin-left: 14%;\n    margin-top: 1%;\n    width: 600px;\n    height: 900px;\n}\n", ""]);
 
 // exports
 
@@ -37123,7 +37223,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.site-name{\n    margin-left: 30px;\n    font-size: xx-large;\n}\n.divNav{\n    margin-left: 5%;\n}\n.drop{\n    right: 50%;\n}\n", ""]);
+exports.push([module.i, "\n.site-name{\n    margin-left: 30px;\n    font-size: xx-large;\n}\n.divNav{\n    margin-left: 5%;\n}\n.drop{\n    right: 50%;\n}\n.slogan{\n    margin-left: 5px;\n    margin-top: 9px;\n    font-style: italic;\n    font-size: medium;\n}\n", ""]);
 
 // exports
 
@@ -80727,7 +80827,17 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "categories" },
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.single_categorie,
+              expression: "!single_categorie"
+            }
+          ],
+          staticClass: "categories"
+        },
         _vm._l(_vm.categories, function(categorie) {
           return _c(
             "a",
@@ -80736,7 +80846,7 @@ var render = function() {
               staticClass: "mb-2 category-body",
               on: {
                 click: function($event) {
-                  return _vm.fetchAdsbyCategory(categorie.categorie_id)
+                  return _vm.fetchAdsbyCategory(categorie.id, categorie.name)
                 }
               }
             },
@@ -80744,7 +80854,142 @@ var render = function() {
           )
         }),
         0
-      )
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.single_categorie && !_vm.single_ad,
+              expression: "single_categorie && !single_ad"
+            }
+          ],
+          staticClass: "data-list"
+        },
+        [
+          _c("h5", { staticClass: "big-title" }, [
+            _vm._v(_vm._s(_vm.categorieName))
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.ads, function(ad) {
+            return _c(
+              "a",
+              {
+                key: ad.id,
+                staticClass: "card card-body mb-2",
+                on: {
+                  click: function($event) {
+                    return _vm.showAd(ad.id)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "dateTime" }, [
+                  _vm._v(_vm._s(ad.created_at))
+                ]),
+                _vm._v(" "),
+                _c("h5", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(ad.title))
+                ]),
+                _vm._v(" "),
+                _c("b", { staticClass: "price" }, [
+                  _vm._v(_vm._s(ad.price) + " DH "),
+                  _c("i", { staticClass: "fas fa-money-bill-wave" })
+                ])
+              ]
+            )
+          }),
+          _vm._v(" "),
+          _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
+            _c("ul", { staticClass: "pagination" }, [
+              _c(
+                "li",
+                {
+                  staticClass: "page-item",
+                  class: [{ disabled: !_vm.pagination.prev_page_url }]
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "page-link",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.fetchAdsbyCategory(
+                            _vm.categorieId,
+                            _vm.categorieName,
+                            _vm.pagination.prev_page_url
+                          )
+                        }
+                      }
+                    },
+                    [_vm._v("Previous")]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("li", { staticClass: "page-item", attrs: { disabled: "" } }, [
+                _c(
+                  "a",
+                  { staticClass: "page-link text-dark", attrs: { href: "#" } },
+                  [
+                    _vm._v(
+                      "Page " +
+                        _vm._s(_vm.pagination.current_page) +
+                        " of " +
+                        _vm._s(_vm.pagination.last_page)
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass: "page-item",
+                  class: [{ disabled: !_vm.pagination.next_page_url }]
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "page-link",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.fetchAdsbyCategory(
+                            _vm.categorieId,
+                            _vm.categorieName,
+                            _vm.pagination.next_page_url
+                          )
+                        }
+                      }
+                    },
+                    [_vm._v("Next")]
+                  )
+                ]
+              )
+            ])
+          ])
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("child-component", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.single_ad,
+            expression: "single_ad"
+          }
+        ],
+        attrs: { display_ad: _vm.display_ad }
+      })
     ],
     1
   )
@@ -81546,108 +81791,108 @@ var render = function() {
     [
       _c("navbar"),
       _vm._v(" "),
-      _c("div", { staticClass: "container bg-light" }, [
+      _c("div", { staticClass: "container" }, [
         _vm.confirmed
-          ? _c("div", { staticClass: "row mt-5 border border-1" }, [
+          ? _c("div", { staticClass: "row mt-5" }, [
               _c("div", { staticClass: "col-lg-4 col-md-12 mt-5" }, [
                 _vm._m(0),
                 _vm._v(" "),
-                _c("form", { staticClass: "mt-5", attrs: { action: "" } }, [
-                  _c("label", { attrs: { for: "Email" } }, [
-                    _vm._v("Email address")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required|email",
-                        expression: "'required|email'"
-                      },
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.credentials.email,
-                        expression: "credentials.email"
-                      }
-                    ],
-                    staticClass: "form-control mb-2 round",
-                    attrs: {
-                      name: "email",
-                      type: "email",
-                      required: "",
-                      id: "",
-                      placeholder: "Email ou CNE"
-                    },
-                    domProps: { value: _vm.credentials.email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "form",
+                  { staticClass: "mt-5 login-form", attrs: { action: "" } },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required|email",
+                          expression: "'required|email'"
+                        },
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.credentials.email,
+                          expression: "credentials.email"
                         }
-                        _vm.$set(_vm.credentials, "email", $event.target.value)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "text-danger d-block" }, [
-                    _vm._v(_vm._s(_vm.errors.first("email")))
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: "Password" } }, [
-                    _vm._v("Mot de passe")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required",
-                        expression: "'required'"
+                      ],
+                      staticClass: "mb-2",
+                      attrs: {
+                        name: "email",
+                        type: "email",
+                        required: "",
+                        id: "",
+                        placeholder: "Email"
                       },
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.credentials.password,
-                        expression: "credentials.password"
-                      }
-                    ],
-                    staticClass: "form-control  mb-2 round",
-                    attrs: {
-                      name: "password",
-                      type: "password",
-                      required: "",
-                      id: "",
-                      placeholder: "Mot de pass"
-                    },
-                    domProps: { value: _vm.credentials.password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      domProps: { value: _vm.credentials.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.credentials,
+                            "email",
+                            $event.target.value
+                          )
                         }
-                        _vm.$set(
-                          _vm.credentials,
-                          "password",
-                          $event.target.value
-                        )
                       }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.first("password")))
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(this.msg))
-                  ])
-                ]),
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text-danger d-block" }, [
+                      _vm._v(_vm._s(_vm.errors.first("email")))
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        },
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.credentials.password,
+                          expression: "credentials.password"
+                        }
+                      ],
+                      staticClass: "mb-2",
+                      attrs: {
+                        name: "password",
+                        type: "password",
+                        required: "",
+                        id: "",
+                        placeholder: "Mot de passe"
+                      },
+                      domProps: { value: _vm.credentials.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.credentials,
+                            "password",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.first("password")))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(this.msg))
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
-                _c("div", { staticClass: "row mt-3" }, [
-                  _c("div", { staticClass: "col-12 text-center" }, [
+                _c("div", { staticClass: "row mt-3 login-button" }, [
+                  _c("div", { staticClass: "col-6 text-center" }, [
                     _c(
                       "button",
                       {
@@ -81659,19 +81904,6 @@ var render = function() {
                         }
                       },
                       [_vm._v("Se connecter")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-success",
-                        on: {
-                          click: function($event) {
-                            return _vm.confirm()
-                          }
-                        }
-                      },
-                      [_vm._v("Confirmer votre compte")]
                     )
                   ])
                 ]),
@@ -81682,114 +81914,104 @@ var render = function() {
               _vm._m(2)
             ])
           : !_vm.confirmed
-          ? _c("div", { staticClass: "row mt-5 border border-1" }, [
+          ? _c("div", { staticClass: "row mt-5" }, [
               _c("div", { staticClass: "col-lg-4 col-md-12 mt-5" }, [
                 _vm._m(3),
                 _vm._v(" "),
-                _c("p", { staticClass: "text-center text-danger" }, [
-                  _vm._v("Vous devez vérifier votre compte")
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "text-center text-danger" }, [
-                  _vm._v("Entrer votre nouveau mot de passe")
-                ]),
-                _vm._v(" "),
-                _c("form", { staticClass: "mt-5", attrs: { action: "" } }, [
-                  _c("label", { attrs: { for: "Password" } }, [
-                    _vm._v("Mot de passe")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required",
-                        expression: "'required'"
-                      },
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.credentials.password,
-                        expression: "credentials.password"
-                      }
-                    ],
-                    staticClass: "form-control  mb-2 round",
-                    attrs: {
-                      name: "password",
-                      type: "password",
-                      required: "",
-                      id: "",
-                      placeholder: "Mot de pass"
-                    },
-                    domProps: { value: _vm.credentials.password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "form",
+                  { staticClass: "mt-5 login-form", attrs: { action: "" } },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        },
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.credentials.password,
+                          expression: "credentials.password"
                         }
-                        _vm.$set(
-                          _vm.credentials,
-                          "password",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: "Password" } }, [
-                    _vm._v("confirmer votre Mot de passe")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required",
-                        expression: "'required'"
+                      ],
+                      staticClass: "mb-2",
+                      attrs: {
+                        name: "password",
+                        type: "password",
+                        required: "",
+                        id: "",
+                        placeholder: "Nouveau mot de passe"
                       },
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.credentials.password_confirmation,
-                        expression: "credentials.password_confirmation"
-                      }
-                    ],
-                    staticClass: "form-control  mb-2 round",
-                    attrs: {
-                      name: "password_confirmation",
-                      type: "password",
-                      required: "",
-                      id: "",
-                      placeholder: "confirmer votre Mot de pass"
-                    },
-                    domProps: { value: _vm.credentials.password_confirmation },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      domProps: { value: _vm.credentials.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.credentials,
+                            "password",
+                            $event.target.value
+                          )
                         }
-                        _vm.$set(
-                          _vm.credentials,
-                          "password_confirmation",
-                          $event.target.value
-                        )
                       }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.first("password")))
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(this.msg))
-                  ])
-                ]),
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        },
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.credentials.password_confirmation,
+                          expression: "credentials.password_confirmation"
+                        }
+                      ],
+                      staticClass: "mb-2",
+                      attrs: {
+                        name: "password_confirmation",
+                        type: "password",
+                        required: "",
+                        id: "",
+                        placeholder: "Confirmer votre mot de passe"
+                      },
+                      domProps: {
+                        value: _vm.credentials.password_confirmation
+                      },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.credentials,
+                            "password_confirmation",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.first("password")))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(this.msg))
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
-                _c("div", { staticClass: "row mt-3" }, [
-                  _c("div", { staticClass: "col-12 text-center" }, [
+                _c("div", { staticClass: "row mt-3 login-button" }, [
+                  _c("div", { staticClass: "col-6 text-center" }, [
                     _c(
                       "button",
                       {
@@ -81800,15 +82022,13 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Confirmer votre compte")]
+                      [_vm._v("Confirmer")]
                     )
                   ])
-                ]),
-                _vm._v(" "),
-                _vm._m(4)
+                ])
               ]),
               _vm._v(" "),
-              _vm._m(5)
+              _vm._m(4)
             ])
           : _vm._e()
       ])
@@ -81821,25 +82041,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mt-9" }, [
-      _c("img", {
-        staticClass: "m-auto",
-        attrs: {
-          width: "100",
-          height: "100",
-          src:
-            "https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mt-2" }, [
-      _c("div", { staticClass: "col-12 text-center" }, [
-        _c("a", { attrs: { href: "#" } }, [_vm._v("mot de passe oublié?")])
+    return _c("div", { staticClass: "row mt-6" }, [
+      _c("span", { staticClass: "hello-message" }, [
+        _vm._v("Bienvenue dans EnSale")
       ])
     ])
   },
@@ -81847,40 +82051,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-8 col-md-12 m-0 p-0" }, [
-      _c("img", {
-        attrs: {
-          height: "70%",
-          width: "100%",
-          src: "http://www.fcensas.com/template/img/slider/ensas-pano.jpg",
-          alt: ""
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mt-9" }, [
-      _c("img", {
-        staticClass: "m-auto",
-        attrs: {
-          width: "100",
-          height: "100",
-          src:
-            "https://cdn1.iconfinder.com/data/icons/e-commerce-set-1-3/64/a-01-512.png"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mt-2" }, [
-      _c("div", { staticClass: "col-12 text-center" }, [
-        _c("a", { attrs: { href: "#" } }, [_vm._v("mot de passe oublié?")])
+    return _c("div", { staticClass: "row mt-2 login-link" }, [
+      _c("div", { staticClass: "col-7 text-center" }, [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("Mot de passe oublié?")])
       ])
     ])
   },
@@ -81888,14 +82061,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-8 col-md-12 m-0 p-0" }, [
+    return _c("div", { staticClass: "background-image" }, [
       _c("img", {
-        attrs: {
-          height: "70%",
-          width: "100%",
-          src: "http://www.fcensas.com/template/img/slider/ensas-pano.jpg",
-          alt: ""
-        }
+        attrs: { height: "70%", width: "100%", src: "e-commerce.png", alt: "" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mt-6" }, [
+      _c("span", { staticClass: "hello-message" }, [
+        _vm._v("Compte vérifié. Bienvenue parmi nous :)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "background-image" }, [
+      _c("img", {
+        attrs: { height: "70%", width: "100%", src: "e-commerce.png", alt: "" }
       })
     ])
   }
@@ -81931,6 +82119,14 @@ var render = function() {
       _c("a", { staticClass: "navbar-brand site-name", attrs: { href: "/" } }, [
         _vm._v("EnSale")
       ]),
+      _vm._v(" "),
+      !_vm.user
+        ? _c("div", { staticClass: "navbar-brand slogan" }, [
+            _vm._v(
+              "Le 1er site d'annonces gratuites exclusive pour ENSAistes au Maroc"
+            )
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _vm.user
         ? _c(
@@ -99328,8 +99524,8 @@ var display_ad = '';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/mohamedelqandili/Desktop/LaravelProjects/OK/EnSale/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/mohamedelqandili/Desktop/LaravelProjects/OK/EnSale/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\User\Documents\Websites\EnSaleBack-backup\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\User\Documents\Websites\EnSaleBack-backup\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

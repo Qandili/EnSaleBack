@@ -1,6 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-sm navbar-dark mb-2" style="background-color:#2699fb;">
         <a href="/" class="navbar-brand site-name">EnSale</a>
+        <div v-if="!user" class="navbar-brand slogan">Le 1er site d'annonces gratuites exclusive pour ENSAistes au Maroc</div>
         <div v-if="user" class="container divNav">
             <router-link to="/" class="navbar-brand">Annonces</router-link>
             <router-link to="/categories" class="navbar-brand">Catégories</router-link>
@@ -69,6 +70,13 @@ export default {
     }
     .drop{
         right: 50%;
+    }
+
+    .slogan{
+        margin-left: 5px;
+        margin-top: 9px;
+        font-style: italic;
+        font-size: medium;
     }
 </style>
 
