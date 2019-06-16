@@ -16,7 +16,10 @@ class ProfileController extends Controller
         //
         return view('UserInfos/profile');
     }
-
+    public function getAds($id){
+        $user=User::with("ads")->findOrFail($id);
+        return $user;
+    }
     /**
      * Store a newly created resource in storage.
      *
