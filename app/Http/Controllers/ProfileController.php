@@ -38,6 +38,13 @@ class ProfileController extends Controller
             }else if(str_contains($exploded[0],'png' )){
                 $extension="png";
             }
+            if(file_exists(public_path().'/'.'Profile_Pictures'.'/'.$user->email.'_'.$user->cne.'.'."png")){
+                unlink(public_path().'/'.'Profile_Pictures'.'/'.$user->email.'_'.$user->cne.'.'."png");
+            }else if(file_exists(public_path().'/'.'Profile_Pictures'.'/'.$user->email.'_'.$user->cne.'.'."jpg")){
+                unlink(public_path().'/'.'Profile_Pictures'.'/'.$user->email.'_'.$user->cne.'.'."jpg");
+            }else if(file_exists(public_path().'/'.'Profile_Pictures'.'/'.$user->email.'_'.$user->cne.'.'."jpeg")){
+                unlink(public_path().'/'.'Profile_Pictures'.'/'.$user->email.'_'.$user->cne.'.'."jpeg");
+            }
             $user->picture_name=$user->email.'_'.$user->cne.'.'.$extension;
             $user->save();
             $file_name=$user->picture_name;
