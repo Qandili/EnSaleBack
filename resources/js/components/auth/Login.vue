@@ -23,7 +23,6 @@
                         <div class="col-12 text-center">
                             <button @click="logIn()" class="btn btn-primary">Se connecter</button>
                             <!-- <input type="submit" value="Login"> -->
-                            <button @click="confirm()" class="btn btn-success">Confirmer votre compte</button>
                         </div>
                     </div>
                     <div class="row mt-2">
@@ -148,14 +147,12 @@
                     return 0;
                 }else{
 
-                console.log("login called");
+                console.log("confirm called");
                 console.log(this.$data.credentials.email);
+                this.confirmed=true;
                 verify(this.$data.credentials)
                 .then((res) => {
-                        console.log(res.response);
-                        this.confirmed=true;
                         console.log("success");
-                        // this.$router.push({path: '/'});
                 })
                 .catch((error) => {
                     console.log(error);

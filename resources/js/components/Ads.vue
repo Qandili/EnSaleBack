@@ -9,12 +9,60 @@
         </div>
         <div class="data-list" v-show="!single_ad">
             <h5 class="big-title">Toutes les annonces</h5>
-            <a class="card card-body mb-2" v-for="ad in ads" :key="ad.id" @click="showAd(ad.id)">
-                <div class="dateTime">{{ad.created_at}}</div>
-                <h5 class="card-title">{{ad.title}}</h5>
-                <span>{{getCity(ad.user_id)}}</span>
-                <b class="price">{{ad.price}} DH&emsp;<i class="fas fa-money-bill-wave"></i></b>
-            </a>
+            <div >
+                <b-container>
+                    <b-row>
+                        <b-col cols="6" class="mb-2" v-for="ad in ads" :key="ad.id">
+                            <v-card class="mx-auto" color="#26c6da" dark max-width="400" @click="showAd(ad.id)">
+                                <v-card-title>
+                                    <i class="fas fa-shopping-cart mr-3"></i>
+                                    <span class="title font-weight-light">{{ad.created_at}}</span>
+                                </v-card-title>
+                                <v-card-text class="headline font-weight-bold">
+                                    {{ad.title}} À vendre
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-list-tile class="grow">
+                                        <v-list-tile-avatar color="grey darken-3">
+                                            <v-img
+                                                class="elevation-6"
+                                                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                                                v-if="!ad.user.picture_name"
+                                            ></v-img>
+                                            <v-img
+                                                class="elevation-6"
+                                                :src="'/Profile_Pictures/'+ad.user.picture_name"
+                                                v-if="ad.user.picture_name"
+                                            ></v-img>
+                                        </v-list-tile-avatar>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>{{ ad.user.first_name }} {{ ad.user.last_name }}</v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-layout
+                                        align-center
+                                        justify-end
+                                        >
+                                            <i class="fas fa-money-bill-wave mr-2"></i>
+                                            <span class="subheading mr-2">{{ad.price}} Dh</span>
+                                            <span class="mr-1">·</span>
+                                            <i class="far fa-thumbs-up mr-2"></i>
+                                            <span class="subheading">45</span>
+                                        </v-layout>
+                                    </v-list-tile>
+                                </v-card-actions>
+                            </v-card>
+                        </b-col>
+                    </b-row>
+                </b-container>
+
+                <!-- <span @click="favoris()"><i class="far fa-star float-right"></i></span>
+                <div  @click="showAd(ad.id)">
+                    <div class="dateTime">{{ad.created_at}}</div>
+                    <h5 class="card-title">{{ad.title}}</h5>
+                    <span>{{getCity(ad.user_id)}}</span>
+                    <b class="price">{{ad.price}} DH&emsp;<i class="fas fa-money-bill-wave"></i></b>
+                </div> -->
+            </div>
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item">
@@ -56,6 +104,18 @@
                     user_id:'',
                     categorie_id:'',
                     created_at:'',
+                    user: {
+                    id:'',
+                    picture_name:null,
+                    cne:'',
+                    email:'',
+                    first_name:'',
+                    last_name:'',
+                    phone_number:'',
+                    address:'',
+                    city:'',
+                    bith_date:''
+                }
                 },
                 picture:{
                     id:'',
@@ -97,7 +157,7 @@
                 })
                 .then(res=>res.json())
                 .then(res=>{
-                    //console.log(res.data);
+                    console.log(res.data);
                     this.ads=res.data;
                     this.makePagination(res.meta,res.links);
                 })
@@ -145,6 +205,9 @@
                     return res.data;
                 })
                 .catch(err => console.log(err));
+            },
+            favoris(){
+                console.log("hi");
             }
         }
     }

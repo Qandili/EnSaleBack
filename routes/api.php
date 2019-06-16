@@ -43,5 +43,6 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('profile','ProfileController@index');
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
+        Route::put('updatePicture', 'ProfileController@store');    
     });
 });
