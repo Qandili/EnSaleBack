@@ -89,7 +89,7 @@ methods:{
         fetchAds(){
                 var user=getLocalUser();
                 const AuthStr='Bearer '.concat(user.token);
-                axios.get("/api/auth/userads/2",{
+                axios.get(`/api/auth/userads/`+user.id,{
                     headers:{
                         'Authorization': AuthStr,
                         'Content-Type': 'application/json',

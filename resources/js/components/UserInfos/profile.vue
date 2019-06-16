@@ -11,10 +11,10 @@
                     <b-col>
                         <b-img v-if="!user.picture_name"  circle center width="100%"
                         :src="profileImage"
-                        alt="Center image" class="profileImage"></b-img>
+                        alt="Center image" class="profileImage Pimage"></b-img>
                         <b-img v-if="user.picture_name"  circle center width="100%"
                         :src="'/Profile_Pictures/'+user.picture_name"
-                        alt="Center image" class="profileImage"></b-img>
+                        alt="Center image" class="profileImage Pimage"></b-img>
                     </b-col>
                 </b-row>
                 <b-row>
@@ -53,6 +53,10 @@ data(){
 </script>
 
 <style scopped>
+.Pimage{
+    width: 82%;
+    height: 40%;
+}
 .profileImage{
     margin: 10px 0px 10px 20px;
     border-radius: 100%;
