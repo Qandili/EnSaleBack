@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h5 class="sub-title">> Mes annonces</h5>
+        <h5 class="sub-title"><i class="fas fa-list-ul"></i>&emsp;Mes annonces</h5>
         <b-row>
             <b-col cols="4" class="mb-2" v-for="ad in user.ads" :key="ad.id">
                 <v-card class="mx-auto" color="#26c6da" dark max-width="400" @click="showAd(ad.id)">

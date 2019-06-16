@@ -216,13 +216,13 @@
         text-decoration: none;
     }
 
-    .dateTime{
+    /*.dateTime{
         position: absolute;right: 5%;top:50%;
-        /*border: 2px dashed #083f91;*/
+        /*border: 2px dashed #083f91;
         padding: 1px 20px 1px 20px;
         border-radius: 10px;
         background-color: rgb(235, 192, 74);
         color: white;
-    }
+    }*/
 </style>
 

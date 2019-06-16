@@ -11,11 +11,11 @@
         </div>
         <div>
             <b-dropdown v-if="user" variant="primary" id="dropdown-1" text="Options" class="m-md-2 primary drop">
-                <b-dropdown-item><router-link  to="/profile">profil</router-link></b-dropdown-item>
-                <b-dropdown-item>Mes annonces</b-dropdown-item>
-                <b-dropdown-item>mes favories</b-dropdown-item>
+                <b-dropdown-item><router-link  to="/profile"><i class="fas fa-tools"></i>&emsp;Paramètres</router-link></b-dropdown-item>
+                <b-dropdown-item><router-link to="/profile/mesannonces"><i class="fas fa-list-ul"></i>&emsp;Mes annonces</router-link></b-dropdown-item>
+                <b-dropdown-item><router-link to="/profile/mesfavoris" replace><i class="fas fa-heart"></i>&emsp;Mes favoris</router-link></b-dropdown-item>
                 <b-dropdown-divider></b-dropdown-divider>
-                <b-dropdown-item @click="logout"  active>Logout</b-dropdown-item>
+                <b-dropdown-item @click="logout"  active><i class="fas fa-sign-out-alt"></i>&emsp;Logout</b-dropdown-item>
             </b-dropdown>
         </div>  
     </nav>

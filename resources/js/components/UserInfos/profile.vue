@@ -1,40 +1,34 @@
 <template>
-    <b-container fluid>
-        <b-row>
-            <b-col class="p-0" cols="12">
-                <navbar/>
-            </b-col>
-        </b-row>
-        <b-row>
-            <b-col cols="2">
-                <b-row>
-                    <b-col>
-                        <b-img v-if="!user.picture_name"  circle center width="100%"
-                        :src="profileImage"
-                        alt="Center image" class="profileImage Pimage"></b-img>
-                        <b-img v-if="user.picture_name"  circle center width="100%"
-                        :src="'/Profile_Pictures/'+user.picture_name"
-                        alt="Center image" class="profileImage Pimage"></b-img>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col class="m-auto text-center" cols="12">
-                        <p>{{ this.user.first_name }}</p>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-list-group class="m-auto myList">
-                        <b-list-group-item class="" ><router-link to="/profile">paramétres</router-link></b-list-group-item>
-                        <b-list-group-item><router-link to="/profile/mesannonces" >mes annonces</router-link></b-list-group-item>
-                        <b-list-group-item><router-link to="/profile/mesfavoris" replace>mes favoris</router-link></b-list-group-item>
-                    </b-list-group>
-                </b-row>
-            </b-col>
-            <b-col>
-                <router-view/>
-            </b-col>
-        </b-row>
-    </b-container>
+    <div>
+        <navbar/>
+        <b-container fluid>
+            <b-row>
+                <b-col cols="2">
+                    <b-row>
+                        <b-col>
+                            <b-img v-if="!user.picture_name"  circle center :src="profileImage" alt="Center image" class="profileImage Pimage"></b-img>
+                            <b-img v-if="user.picture_name"  circle center :src="'/Profile_Pictures/'+user.picture_name" alt="Center image" class="profileImage Pimage"></b-img>
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col class="m-auto text-center" cols="12">
+                            <p>{{ this.user.first_name }}</p>
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-list-group class="m-auto myList">
+                            <b-list-group-item class="" ><router-link to="/profile"><i class="fas fa-tools"></i>&emsp;Paramétres</router-link></b-list-group-item>
+                            <b-list-group-item><router-link to="/profile/mesannonces"><i class="fas fa-list-ul"></i>&emsp;Mes annonces</router-link></b-list-group-item>
+                            <b-list-group-item><router-link to="/profile/mesfavoris" replace><i class="fas fa-heart"></i>&emsp;Mes favoris</router-link></b-list-group-item>
+                        </b-list-group>
+                    </b-row>
+                </b-col>
+                <b-col>
+                    <router-view/>
+                </b-col>
+            </b-row>
+        </b-container>
+    </div>
 </template>
 
 <script>

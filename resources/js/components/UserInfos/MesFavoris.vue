@@ -1,8 +1,6 @@
 <template>
     <div>
-        <p>
-            mesfavoris
-        </p>
+        <h5 class="sub-title"><i class="fas fa-heart"></i>&emsp;Mes favoris</h5>
     </div>
 </template>
 

@@ -1,8 +1,9 @@
 <template>
 <b-container fluid>
+    <h5 class="sub-title"><i class="fas fa-tools"></i>&emsp;Paramétres</h5>
     <b-row>
         <b-col class="text-center">
-            <h2 class="text-success text-center">Changer votre photo de profil</h2>
+            <h4 class="sub-sub-title">Modifier votre photo de profil</h4>
         </b-col>
     </b-row>
     <b-row>
@@ -16,8 +17,8 @@
         </b-col>
     </b-row>
     <b-row>
-        <b-col class="text-center m-2">
-            <button @click="uploadImage()" class="btn btn-success m-auto text-center">Upload Picture</button>
+        <b-col class="text-center m-2 param-button">
+            <button @click="uploadImage()" class="btn btn-primary m-auto text-center">Modifier</button>
         </b-col>
     </b-row>
 
@@ -111,3 +112,23 @@ export default {
     }
 }
 </script>
+<style>
+    .sub-sub-title{
+        color: #083f91;
+    }
+    .param-button .btn-primary{
+        color: #083f91;
+        letter-spacing: 1px;
+        line-height: 25px;
+        border: 2px solid #083f91;
+        border-radius: 40px;
+        background: transparent;
+        transition: all 0.3s ease 0s;
+    }
+
+    .param-button .btn-primary:hover {
+        color: #FFF;
+        background: #083f91;
+        border: 2px solid #083f91;
+    }
+</style>
