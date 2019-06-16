@@ -19,7 +19,6 @@ export function verify(credentials){
         axios.put("api/auth/signup", credentials)
         .then((response) => {
             setAuthorization(response.data.access_token);
-            res(response.data);
         })
         .catch(function (error) {
             rej("An error was occured");

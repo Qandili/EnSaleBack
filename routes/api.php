@@ -30,6 +30,8 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('ad/{id}','AdController@show');
         //Post new ad
         Route::post('ad/new','AdController@store');
+        //Get all user Posts
+        Route::get('userads/{id}','ProfileController@getAds');
         //Update ad
         Route::put('ad','AdController@store');
         //Delete ad
@@ -45,5 +47,6 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('profile','ProfileController@index');
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
+        Route::put('updatePicture', 'ProfileController@store');    
     });
 });

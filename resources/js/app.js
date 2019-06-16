@@ -11,7 +11,10 @@ import StoreData from './store.js';
 import Vue from 'vue';
 import axios from 'axios';
 import Vuex from 'vuex';
+import Vuetify from 'vuetify'
 import VueRouter from 'vue-router';
+import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
+
 import VeeValidate from 'vee-validate';
 import {initialize} from './Helpers/general';
 import BootstrapVue from 'bootstrap-vue'
@@ -24,6 +27,7 @@ Vue.use(Vuex);
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue)
 Vue.use(VueRouter);
+Vue.use(Vuetify)
 // initialize(store, router);
 /*************** Instances ************************ */
 window.axios = axios;

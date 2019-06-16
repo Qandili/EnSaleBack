@@ -150,14 +150,12 @@
                     return 0;
                 }else{
 
-                console.log("login called");
+                console.log("confirm called");
                 console.log(this.$data.credentials.email);
+                this.confirmed=true;
                 verify(this.$data.credentials)
                 .then((res) => {
-                        console.log(res.response);
-                        this.confirmed=true;
                         console.log("success");
-                        // this.$router.push({path: '/'});
                 })
                 .catch((error) => {
                     console.log(error);

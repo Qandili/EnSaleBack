@@ -19,7 +19,8 @@ class AdController extends Controller
     public function index()
     {
          //Get ads
-        $ads=Ad::orderBy('created_at','desc')->paginate(5);
+
+        $ads=Ad::with("user")->orderBy('created_at','desc')->paginate(9);
          //Return collection of ads as a resource
         return AdResource ::collection($ads);
     }

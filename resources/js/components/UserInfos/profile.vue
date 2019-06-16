@@ -9,11 +9,16 @@
             <b-col cols="2">
                 <b-row>
                     <b-col>
-                        <b-img  circle center src="https://picsum.photos/125/125/?image=58" alt="Center image" class="profileImage"></b-img>
+                        <b-img v-if="!user.picture_name"  circle center width="100%"
+                        :src="profileImage"
+                        alt="Center image" class="profileImage"></b-img>
+                        <b-img v-if="user.picture_name"  circle center width="100%"
+                        :src="'/Profile_Pictures/'+user.picture_name"
+                        alt="Center image" class="profileImage"></b-img>
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col class="m-auto" cols="6">
+                    <b-col class="m-auto text-center" cols="12">
                         <p>{{ this.user.first_name }}</p>
                     </b-col>
                 </b-row>
@@ -22,9 +27,6 @@
                         <b-list-group-item class="" ><router-link to="/profile">paramétres</router-link></b-list-group-item>
                         <b-list-group-item><router-link to="/profile/mesannonces" >mes annonces</router-link></b-list-group-item>
                         <b-list-group-item><router-link to="/profile/mesfavoris" replace>mes favoris</router-link></b-list-group-item>
-                        <b-list-group-item>mes annonces</b-list-group-item>
-                        <b-list-group-item>mes favoris</b-list-group-item>
-                        <!-- <b-list-group-item></b-list-group-item> -->
                     </b-list-group>
                 </b-row>
             </b-col>
@@ -43,6 +45,7 @@ export default {
     },
 data(){
     return {
+        profileImage:"https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light",
         user:this.$store.getters.currentUser,
     }
 }

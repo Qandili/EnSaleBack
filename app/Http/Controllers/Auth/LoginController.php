@@ -29,8 +29,9 @@ class LoginController extends Controller
         $user->password=Hash::make($request->password);
         $user->save();
         return response()->json([
+            'user'=>$user,
             'message' => 'Successfully Verified user!'
-        ], 201);
+        ]);
     }
     /**
      * Login user and create token
