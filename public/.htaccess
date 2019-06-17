@@ -18,11 +18,4 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-
-    RewriteEngine on
-    RewriteBase /
-    RewriteCond %{REQUEST_URI} !^public
-    RewriteRule ^(.*)$ public/$1 [L]
-    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
-
 </IfModule>
