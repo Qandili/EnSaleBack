@@ -9,6 +9,7 @@
 </head>
 <body>
     <div id="app">
+        hi there
         <mainapp></mainapp>
     </div>
 </body>
