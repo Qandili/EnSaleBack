@@ -11,10 +11,16 @@ class Ad extends Model
     ];
 
     /**
- * Get the post that owns the comment.
- */
-public function user()
-{
-    return $this->belongsTo('App\Models\User');
-}
+     * Get the post that owns the comment.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function categorie()
+    {
+        return $this->belongsTo('App\Models\Categorie');
+    }
+
 }

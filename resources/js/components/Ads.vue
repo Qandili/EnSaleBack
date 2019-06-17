@@ -173,22 +173,6 @@
                     .catch(err => console.log(err));
                 })
             },
-            getCity(id){
-                var user=getLocalUser();
-                const AuthStr='Bearer '.concat(user.token);
-                fetch('api/auth/user/'+id,{
-                    headers:{
-                        'Authorization': AuthStr,
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(res=>res.json())
-                .then(res=>{
-                    console.log(res.data);
-                    return res.data;
-                })
-                .catch(err => console.log(err));
-            },
             favoris(){
                 console.log("hi");
             }
@@ -215,14 +199,5 @@
         color: inherit;
         text-decoration: none;
     }
-
-    /*.dateTime{
-        position: absolute;right: 5%;top:50%;
-        /*border: 2px dashed #083f91;
-        padding: 1px 20px 1px 20px;
-        border-radius: 10px;
-        background-color: rgb(235, 192, 74);
-        color: white;
-    }*/
 </style>
 

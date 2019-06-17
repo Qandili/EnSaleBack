@@ -83,7 +83,7 @@ class AdController extends Controller
     public function show(Request $request)
     {
         //Get ad
-        $ad=Ad::findOrFail($request->id);
+        $ad=Ad::with("user")->with("categorie")->findOrFail($request->id);
         //Get pictures
         $pictures=Picture::all()->where('ad_id',$request->id);
         //Return single ad and a collection of pictures as a resource

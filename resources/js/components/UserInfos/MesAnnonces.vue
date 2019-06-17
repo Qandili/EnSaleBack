@@ -20,7 +20,9 @@
                             </v-list-tile-content>
                             <v-layout align-center justify-end>
                                 <i class="fas fa-money-bill-wave mr-2"></i>
-                                <span class="subheading mr-2">{{ad.price}} Dh</span>
+                                <span class="subheading mr-2">{{ad.price}} Dh</span>&emsp;&emsp;
+                                <i class="fas fa-trash-alt text-danger"></i>&emsp;
+                                <i class="fas fa-pencil-alt text-warning"></i>
                             </v-layout>
                         </v-list-tile>
                     </v-card-actions>
