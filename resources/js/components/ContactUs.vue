@@ -31,18 +31,6 @@
                 <!-- contact form -->
                 <div class="col-md-6 wow animated fadeInRight" data-wow-delay=".2s">
                     <form class="shake" role="form" method="post" id="contactForm" name="contact-form" data-toggle="validator">
-                        <!-- Name -->
-                        <div class="form-group label-floating">
-                            <label class="control-label" for="name">Nom et prénom</label>
-                            <input class="form-control" id="name" type="text" name="name" required data-error="Please enter your name">
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <!-- email -->
-                        <div class="form-group label-floating">
-                            <label class="control-label" for="email">Email</label>
-                            <input class="form-control" id="email" type="email" name="email" required data-error="Please enter your Email">
-                            <div class="help-block with-errors"></div>
-                        </div>
                         <!-- Subject -->
                         <div class="form-group label-floating">
                             <label class="control-label">Sujet</label>

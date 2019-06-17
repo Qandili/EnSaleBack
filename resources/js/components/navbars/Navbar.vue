@@ -20,7 +20,7 @@
             </b-dropdown>
         </div>  
     </nav>
-    <div class="modal fade" id="myModal">
+    <div class="modal fade" id="myModal" v-if="this.user">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <b-container class="m-auto bg-light radius">
@@ -98,13 +98,17 @@ export default {
         this.user=getLocalUser();
         
         this.fetchCategories();
-
         console.log(this.$store.getters.currentUser);
+    },
+    mounted(){
+        if(this.$store.getters.currentUser){
+            this.user_id=this.$store.getters.currentUser.id;
+        }
     },
     data(){
         return{
             user:null,
-     image:null,
+            image:null,
             user:this.$store.getters.currentUser,
             categories:[],
             newAd: {
@@ -122,20 +126,23 @@ export default {
                 // console.log("logout called");
                 this.$store.dispatch('logout'); 
         },
-                    close(index,e){
+        close(index,e){
                 e.preventDefault();
                 this.newAd.image.splice(index, 1);
             },
-            onImageChange(e) {
+        onImageChange(e) {
                 var fileReader=new FileReader();
                 fileReader.readAsDataURL(e.target.files[0]);
                 fileReader.onload=(e) => {
                     this.newAd.image.push(e.target.result);
                 }
-            },
+        },
         fetchCategories(page_url){
             var user=getLocalUser();
-            const AuthStr='Bearer '.concat(user.token);
+            let AuthStr=null; 
+            if(user){
+                AuthStr='Bearer '.concat(user.token);
+            }
             page_url=page_url || 'api/auth/categories'
             fetch(page_url,{
                 headers:{
