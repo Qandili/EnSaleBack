@@ -47,7 +47,7 @@
                         <span class="hello-message">Compte vérifié. Bienvenue parmi nous :)</span>
                     </div>
                     <form class="mt-5 login-form" action="">
-                        <!--<label for="Password">Mot de passe</label>-->
+                        <label class="text-primary" for="Password">Veuillez changer votre ancien mot de passe</label>
                         <input  name="password" v-validate="'required'" v-model="credentials.password" type="password" required class="mb-2" id="" placeholder="Nouveau mot de passe">
                         <!--<label for="Password">Confirmer votre mot de passe</label>-->
                         <input  name="password_confirmation" v-validate="'required'" v-model="credentials.password_confirmation" type="password" required class="mb-2" id="" placeholder="Confirmer votre mot de passe">
