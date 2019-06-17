@@ -2,26 +2,17 @@
     <div>
         <navbar/>
         <div  v-show="!single_categorie">
-            <b-row   >
-                <b-col class="mb-4" v-for="(categorie,index) in categories" :key="categorie.id" @click="fetchAdsbyCategory(categorie.id,categorie.name)" cols="4">
-                    <v-layout>
-                        <v-flex xs12 sm6 offset-sm3>
-                        <v-card>
-                            <v-img
-                            class="white--text"
-                            height="200px"
-                            :src="'/Cat/'+pictures[index]+'.jpeg'" 
-                            > 
-                            </v-img>
-                            <v-card-title>
-                            <div>
-                                <span class="grey--text">categorie {{index + 1}}</span><br>
-                                <span>{{categorie.name}}</span><br>
-                            </div>
-                            </v-card-title>
-                        </v-card>
-                        </v-flex>
-                    </v-layout>
+            <b-row class="mx-auto">
+                <b-col class="mb-4 mx-auto" v-for="(categorie,index) in categories" :key="categorie.id" @click="fetchAdsbyCategory(categorie.id,categorie.name)" cols="4">
+                    <v-card width="450px">
+                        <v-img class="white--text" height="350px" :src="'/Cat/'+pictures[index]+'.jpeg'" > </v-img>
+                        <v-card-title>
+                        <div>
+                            <span class="grey--text">Catégorie {{index + 1}}</span><br>
+                            <span>{{categorie.name}}</span><br>
+                        </div>
+                        </v-card-title>
+                    </v-card>
                 </b-col>
             </b-row>
         </div>
@@ -72,8 +63,7 @@
                     "louer",
                     "bien",
                     "loisir",
-                    "service"
-
+                    "meuble"
                 ],
                 single_categorie:'',
                 categorieId: '',

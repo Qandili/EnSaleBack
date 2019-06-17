@@ -20,7 +20,7 @@ class AdController extends Controller
     {
          //Get ads
 
-        $ads=Ad::with("user")->orderBy('created_at','desc')->paginate(9);
+        $ads=Ad::with("user")->orderBy('created_at','desc')->paginate(6);
          //Return collection of ads as a resource
         return AdResource ::collection($ads);
     }

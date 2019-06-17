@@ -1,6 +1,6 @@
 
 import Ads from './components/Ads.vue';
-import Ad from './components/Ad.vue';
+import ContactUs from './components/ContactUs.vue';
 import PostNewAd from './components/PostNewAd.vue';
 import Categories from './components/Categories.vue';
 import Login from './components/auth/Login.vue';
@@ -39,6 +39,14 @@ export const router = [
         path:'/categories',
         name:'categories',
         component:Categories,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path:'/contactus',
+        name:'contactus',
+        component:ContactUs,
         meta: {
             requiresAuth: true
         }

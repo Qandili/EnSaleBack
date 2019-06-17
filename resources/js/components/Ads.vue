@@ -11,8 +11,8 @@
             <h5 class="big-title">Toutes les annonces</h5>
             <div >
                 <b-row>
-                    <b-col cols="4" v-for="ad in ads" :key="ad.id">
-                        <v-card class="mb-2" color="#26c6da" dark max-width="400" @click="showAd(ad.id)">
+                    <b-col cols="6" v-for="ad in ads" :key="ad.id">
+                        <v-card class="mb-2" color="#26c6da" dark max-width="600" @click="showAd(ad.id)">
                             <v-card-title>
                                 <i class="fas fa-shopping-cart mr-3"></i>
                                 <span class="title font-weight-light">{{ad.created_at}}</span>
@@ -29,9 +29,12 @@
                                     </v-list-tile-content>
                                     <v-layout align-center justify-end>
                                         <i class="fas fa-money-bill-wave mr-2"></i>
-                                        <span class="subheading mr-2">{{ad.price}} Dh</span>
-                                        <!--<i class="far fa-thumbs-up mr-2"></i>
-                                        <span class="subheading">45</span>-->
+                                        <span class="mr-2 price">{{ad.price}} Dh</span>
+                                        <div v-if="ad.user.id==local_user.id">
+                                            &emsp;
+                                            <i class="fas fa-trash-alt text-danger"></i>&emsp;
+                                            <i class="fas fa-pencil-alt text-warning"></i>
+                                        </div>
                                     </v-layout>
                                 </v-list-tile>
                             </v-card-actions>
@@ -78,6 +81,7 @@
                 ads:[],
                 single_ad:'',
                 display_ad:'',
+                local_user:'',
                 ad:{
                     id:'',
                     description:'',
@@ -126,6 +130,7 @@
         mounted(){
             //run automatically when the page loads
             this.fetchAds();
+            this.local_user=getLocalUser();
         },
         methods:{
             fetchAds(page_url){
@@ -198,6 +203,10 @@
     a.card,a.card:hover {
         color: inherit;
         text-decoration: none;
+    }
+
+    .price{
+        font-size: x-large;
     }
 </style>
 

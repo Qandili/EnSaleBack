@@ -2,13 +2,13 @@
     <div>
         <h5 class="sub-title"><i class="fas fa-list-ul"></i>&emsp;Mes annonces</h5>
         <b-row>
-            <b-col cols="4" class="mb-2" v-for="ad in user.ads" :key="ad.id">
-                <v-card class="mx-auto" color="#1E88E5" dark max-width="400" @click="showAd(ad.id)">
+            <b-col cols="6" class="mb-2" v-for="ad in user.ads" :key="ad.id">
+                <v-card class="mx-auto" color="#1E88E5" dark max-width="600" @click="showAd(ad.id)">
                     <v-card-title>
                         <i class="fas fa-shopping-cart mr-3"></i>
                         <span class="title font-weight-light">{{ad.created_at}}</span>
                     </v-card-title>
-                    <v-card-text class="headline font-weight-bold">{{ad.title}}</v-card-text>
+                    <v-card-text class="headline">{{ad.title}}</v-card-text>
                     <v-card-actions>
                         <v-list-tile class="grow">
                             <v-list-tile-avatar color="grey darken-3">
@@ -20,7 +20,7 @@
                             </v-list-tile-content>
                             <v-layout align-center justify-end>
                                 <i class="fas fa-money-bill-wave mr-2"></i>
-                                <span class="subheading mr-2">{{ad.price}} Dh</span>&emsp;&emsp;
+                                <span class="mr-2 price">{{ad.price}} Dh</span>&emsp;&emsp;
                                 <i class="fas fa-trash-alt text-danger"></i>&emsp;
                                 <i class="fas fa-pencil-alt text-warning"></i>
                             </v-layout>
@@ -89,9 +89,13 @@ export default {
 }
 </script>
 <style>
-.sub-title{
-    color:#2699fb;
-    margin: 20px;
-}
+    .sub-title{
+        color:#2699fb;
+        margin: 20px;
+    }
+
+    .price{
+        font-size: x-large;
+    }
 
 </style>

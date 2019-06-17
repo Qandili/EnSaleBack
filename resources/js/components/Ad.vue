@@ -1,12 +1,12 @@
 <template>
     <div class="card card-body mb-2 single-data">
-        <b-dropdown size="sm" id="dropdown-left" toggle-class="text-decoration-none" class="">
-            <template slot="button-content"><i class="fas fa-ellipsis-v text-primary"></i><span class="sr-only">Menu</span></template>
-            <b-dropdown-item><router-link  to="#"><i class="fas fa-trash-alt text-danger"></i>&emsp;Modifier</router-link></b-dropdown-item>
-            <b-dropdown-item><router-link  to="#"><i class="fas fa-pencil-alt text-warning"></i>&emsp;Supprimer</router-link></b-dropdown-item>
-        </b-dropdown>
         <div v-for="object in display_ad" :key="object.id">
             <div v-if="object.title">
+                <b-dropdown v-if="object.user.id==local_user.id" variant="link" toggle-class="text-decoration-none" class="menu" no-caret>
+                    <template slot="button-content"><i class="fas fa-ellipsis-v"></i><span class="sr-only">Menu</span></template>
+                    <b-dropdown-item><router-link  to="#"><i class="fas fa-trash-alt"></i>&emsp;Modifier</router-link></b-dropdown-item>
+                    <b-dropdown-item><router-link  to="#"><i class="fas fa-pencil-alt"></i>&emsp;Supprimer</router-link></b-dropdown-item>
+                </b-dropdown>
                 <h3 class="ad-title">{{object.title}}</h3>
                 <p>{{object.description}}</p>
                 <ul class="informations">
@@ -34,7 +34,7 @@ export default {
     props:['display_ad'],
     data(){
         return{
-            current_user:'',
+            local_user:'',
             ad:{
                 id:'',
                 description:'',
@@ -71,7 +71,7 @@ export default {
     },
     mounted(){
         //run automatically when the page loads
-        this.current_user=getLocalUser();
+        this.local_user=getLocalUser();
     }
 }
 
@@ -132,6 +132,11 @@ export default {
         border-radius: 5px;
         background-color: #083f91;
         color: white;
+    }
+
+    .menu{
+        margin-top: 10px;
+        float: right;
     }
 </style>
 
