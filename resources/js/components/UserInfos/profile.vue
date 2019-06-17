@@ -28,6 +28,7 @@
                 </b-col>
             </b-row>
         </b-container>
+        <mfooter class="Cusfooter"></mfooter>
     </div>
 </template>
 
@@ -48,8 +49,8 @@ data(){
 
 <style scopped>
 .Pimage{
-    width: 82%;
-    height: 40%;
+    width: 100%;
+    height: 25%;
 }
 .profileImage{
     margin: 10px 0px 10px 20px;
@@ -60,5 +61,10 @@ data(){
 }
 .user{
         margin: 50px 15px;
+}
+.Cusfooter{
+    bottom: 0;
+    position: absolute;
+    width: 100%;
 }
 </style>

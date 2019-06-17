@@ -106,6 +106,7 @@
             </fieldset>
             <b-button type="submit" variant="primary">Déposer votre annonce</b-button>
         </b-form> -->
+
     </div>
 </template>
 
@@ -145,19 +146,6 @@ export default {
                     this.newAd.image.push(e.target.result);
                 }
             },
-            // createImage(file) {
-            //     let reader = new FileReader();
-            //     let vm = this;
-            //     reader.onload = (e) => {
-            //         vm.newAd.image = e.target.result;
-            //     };
-            //     reader.readAsDataURL(file);
-            // },
-            // uploadImage(){
-            //     axios.post('/image/store',{image: this.image}).then(response => {
-            //        console.log(response);
-            //     });
-            // },
         fetchCategories(page_url){
             var user=getLocalUser();
             const AuthStr='Bearer '.concat(user.token);

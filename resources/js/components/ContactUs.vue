@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div style="background:#E3F2FD">
         <navbar/>
-        <section class="Material-contact-section section-padding section-dark">
+        <section class="Material-contact-section section-padding section-dark height">
         <div class="container">
             <div class="row">
                 <!-- Section Titile -->
@@ -15,17 +15,17 @@
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content.</p>
 
                     <div class="find-widget">
-                    StartUp  <a href="https://hostriver.ro">HostRiver</a>
+                    StartUp  <a href="https://hostriver.ro">EnSale</a>
                     </div>
                     <div class="find-widget">
-                    Adresse: <a href="#">4435 Berkshire Circle Knoxville</a>
+                    Adresse: <a href="#">Sidi Bouzid</a>
                     </div>
                     <div class="find-widget">
                     Tel:  <a href="#">+ 879-890-9767</a>
                     </div>
                     
                     <div class="find-widget">
-                    Site web:  <a href="https://uny.ro">www.uny.ro</a>
+                    Site web:  <a href="https://uny.ro">www.Ensale.ma</a>
                     </div>
                 </div>
                 <!-- contact form -->
@@ -66,6 +66,7 @@
             </div>
         </div>
         </section>
+        <mfooter class="Cusfooter"></mfooter>
     </div>
 </template>
 
@@ -91,5 +92,12 @@ name:"SpaTest"
         background: #2699fb;
         border: 2px solid #2699fb;
     }
-
+.Cusfooter{
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+.height{
+        height: 83%;
+}
 </style>
