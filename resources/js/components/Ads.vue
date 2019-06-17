@@ -1,14 +1,17 @@
 <template>
     <div>
         <navbar/>
-        <div class="most-watched">
-            <h5 class="big-title">Les plus vues</h5>
-        </div>
-        <div class="by-category">
-            <h5 class="big-title">Naviguer par catégorie</h5>
-        </div>
+        <v-container>
+            <b-row>
+                <b-col>
+                    <h5 class="big-title">Toutes les annonces</h5>
+                </b-col>
+                <b-col>
+                    <h5 class="big-title">Naviguer par catégorie</h5>
+                </b-col>
+            </b-row>
+        </v-container>
         <div class="data-list" v-show="!single_ad">
-            <h5 class="big-title">Toutes les annonces</h5>
             <div >
                 <b-row>
                     <b-col cols="6" v-for="ad in ads" :key="ad.id">
