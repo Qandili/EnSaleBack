@@ -62,6 +62,6 @@
         ],
         "post-install-cmd": 
         [   "php artisan clear-compiled",
-            "chmod -R 755 app/storage" ]
+            "chmod -R 755 public/" ]
     }
 }
