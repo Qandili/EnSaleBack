@@ -1,11 +1,33 @@
 <template>
     <div>
         <navbar/>
-        <div class="categories" v-show="!single_categorie">
-            <a class="mb-2 category-body" v-for="categorie in categories" :key="categorie.id" @click="fetchAdsbyCategory(categorie.id,categorie.name)">
-                    <h4>{{categorie.name}}</h4>
-            </a>
+        <div  v-show="!single_categorie">
+            <b-row   >
+                <b-col class="mb-4" v-for="(categorie,index) in categories" :key="categorie.id" @click="fetchAdsbyCategory(categorie.id,categorie.name)" cols="4">
+                    <v-layout>
+                        <v-flex xs12 sm6 offset-sm3>
+                        <v-card>
+                            <v-img
+                            class="white--text"
+                            height="200px"
+                            :src="'/Cat/'+pictures[index]+'.jpeg'" 
+                            > 
+                            </v-img>
+                            <v-card-title>
+                            <div>
+                                <span class="grey--text">categorie {{index + 1}}</span><br>
+                                <span>{{categorie.name}}</span><br>
+                            </div>
+                            </v-card-title>
+                        </v-card>
+                        </v-flex>
+                    </v-layout>
+                </b-col>
+            </b-row>
         </div>
+            <!-- <a class="mb-2 category-body" v-for="categorie in categories" :key="categorie.id" @click="fetchAdsbyCategory(categorie.id,categorie.name)">
+                    <h4>{{categorie.name}}</h4>
+            </a> -->
         <div class="data-list" v-show="single_categorie && !single_ad">
             <h5 class="big-title">{{categorieName}}</h5>
             <a class="card card-body mb-2" v-for="ad in ads" :key="ad.id"  @click="showAd(ad.id)">
@@ -44,6 +66,15 @@
             return{
                 categories:[],
                 single_ad:'',
+                pictures:[
+                    "info",
+                    "vehicule",
+                    "louer",
+                    "bien",
+                    "loisir",
+                    "service"
+
+                ],
                 single_categorie:'',
                 categorieId: '',
                 display_ad:'',
@@ -155,5 +186,6 @@
         color: white;
         text-align: center;
     }
+
 </style>
 

@@ -3,7 +3,7 @@
         <h5 class="sub-title"><i class="fas fa-list-ul"></i>&emsp;Mes annonces</h5>
         <b-row>
             <b-col cols="4" class="mb-2" v-for="ad in user.ads" :key="ad.id">
-                <v-card class="mx-auto" color="#26c6da" dark max-width="400" @click="showAd(ad.id)">
+                <v-card class="mx-auto" color="#1E88E5" dark max-width="400" @click="showAd(ad.id)">
                     <v-card-title>
                         <i class="fas fa-shopping-cart mr-3"></i>
                         <span class="title font-weight-light">{{ad.created_at}}</span>
