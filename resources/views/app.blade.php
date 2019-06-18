@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="app">
-        hi
+        hello
         <mainapp></mainapp>
     </div>
 </body>
