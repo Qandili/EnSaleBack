@@ -1,4 +1,7 @@
 {
+    "engines": {
+        "node": "8.11.1"
+    },
     "private": true,
     "scripts": {
         "dev": "npm run development",
