@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f114589924681c37bee7b7ed3615904",
+    "content-hash": "92f488965aed336cb6cab4a994ce6bbf",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -4133,6 +4133,50 @@
             "time": "2016-01-20T08:20:44+00:00"
         },
         {
+            "name": "heroku/heroku-buildpack-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/heroku/heroku-buildpack-php.git",
+                "reference": "62a691bf5937d35a7236c581734352208037d710"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/62a691bf5937d35a7236c581734352208037d710",
+                "reference": "62a691bf5937d35a7236c581734352208037d710",
+                "shasum": ""
+            },
+            "bin": [
+                "bin/heroku-hhvm-apache2",
+                "bin/heroku-hhvm-nginx",
+                "bin/heroku-php-apache2",
+                "bin/heroku-php-nginx"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Zuelke",
+                    "email": "dz@heroku.com"
+                }
+            ],
+            "description": "Toolkit for starting a PHP application locally, with or without foreman, using the same config for PHP/HHVM and Apache2/Nginx as on Heroku",
+            "homepage": "https://github.com/heroku/heroku-buildpack-php",
+            "keywords": [
+                "apache",
+                "apache2",
+                "foreman",
+                "heroku",
+                "hhvm",
+                "nginx",
+                "php"
+            ],
+            "time": "2019-06-13T20:23:59+00:00"
+        },
+        {
             "name": "mockery/mockery",
             "version": "1.2.2",
             "source": {
@@ -5622,7 +5666,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "heroku/heroku-buildpack-php": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
