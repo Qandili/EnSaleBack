@@ -1,3 +1,5 @@
+import {baseURL} from '../app.js';
+
 export function initialize(store, router) {
     console.log("jank");
     router.beforeEach((to, from, next) => {
@@ -6,12 +8,14 @@ export function initialize(store, router) {
         if(requiresAuth && !currentUser) {
 
             // next('/login');
-            window.location.href="http://127.0.0.1:8000/login";
+            // window.location.href="http://127.0.0.1:8000/login";
+            window.location.href=baseURL+"/login";
             console.log("not logged in");
         } else if(to.path == '/login' && currentUser) {
 
             // next('/annonces');
-            window.location.href="http://127.0.0.1:8000/";
+            // window.location.href="http://127.0.0.1:8000/";
+            window.location.href=baseURL+"/";
             console.log("logged in");
         } else {
             next();

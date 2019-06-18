@@ -64,13 +64,14 @@ export default store;
 //     var user=getLocalUser();
 //     return user;
 // }
+
 const store= new Vuex.Store(StoreData);
 const router = new VueRouter({
     routes,
     mode: 'history'
 });
 initialize(store, router);
-
+export const baseURL = 'http://ensale.herokuapp.com'; // 'http://localhost:8000/api/'
 export const User = getLocalUser();
 const app = new Vue({
     el: '#app',
