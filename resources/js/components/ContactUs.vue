@@ -34,13 +34,13 @@
                         <!-- Subject -->
                         <div class="form-group label-floating">
                             <label class="control-label">Sujet</label>
-                            <input class="form-control" id="msg_subject" type="text" name="subject" required data-error="Please enter your message subject">
+                            <input v-model="email.sujet" class="form-control" id="msg_subject" type="text" name="subject" required data-error="Please enter your message subject">
                             <div class="help-block with-errors"></div>
                         </div>
                         <!-- Message -->
                         <div class="form-group label-floating">
                             <label for="message" class="control-label">Message</label>
-                            <textarea class="form-control" rows="3" id="message" name="message" required data-error="Write your message"></textarea>
+                            <textarea v-model="email.message" class="form-control" rows="3" id="message" name="message" required data-error="Write your message"></textarea>
                             <div class="help-block with-errors"></div>
                         </div>
                         <!-- Form Submit -->
@@ -60,7 +60,17 @@
 
 <script>
 export default {
-name:"SpaTest"
+name:"SpaTest",
+data(){
+    return {
+        email:{
+            sujet:null,
+            message:null,
+            username:null,
+            email:null
+        }
+    }
+}
 }
 </script>
 
