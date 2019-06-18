@@ -63,9 +63,7 @@
         "post-install-cmd": 
         [   "php artisan clear-compiled",
             "chmod -R 755 public/",
-            "php artisan migrate:refresh --force",
-            "npm install",
-            "npm run production"
+            "php artisan migrate:refresh --force"
         ]
     }
 }
