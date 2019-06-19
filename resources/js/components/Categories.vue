@@ -43,6 +43,7 @@
             </nav>
         </div>
         <child-component :display_ad="display_ad" v-show="single_ad"></child-component>
+    <mfooter></mfooter>
     </div>
 </template>
 <script>

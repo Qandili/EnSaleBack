@@ -22,6 +22,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import {getLocalUser} from './Helpers/auth' 
 import mainapp from './components/MainApp.vue'
+import mfooter from './components/mfooter.vue'
 /************** Usages *************** */
 Vue.use(Vuex); 
 Vue.use(VeeValidate);
@@ -52,6 +53,7 @@ Vue.component('ads', require('./components/Ads.vue').default);
 Vue.component('categories', require('./components/Categories.vue').default);
 Vue.component('navbar', require('./components/navbars/Navbar.vue').default);
 Vue.component('profile', require('./components/UserInfos/profile.vue').default);
+Vue.component('mfooter', require('./components/mfooter.vue').default); 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -75,6 +77,8 @@ const app = new Vue({
     store,
     router,
     components:{
-        mainapp
+        mainapp,
     }
 });
+
+

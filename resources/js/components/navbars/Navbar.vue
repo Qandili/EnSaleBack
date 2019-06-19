@@ -1,13 +1,14 @@
 <template>
+<div>
     <nav class="navbar navbar-expand-sm navbar-dark mb-2" style="background-color:#2699fb;height: 74px;">
         <a href="/" class="navbar-brand site-name">EnSale</a>
         <div v-if="!user" class="navbar-brand slogan">Le 1er site d'annonces gratuites exclusive pour ENSAistes au Maroc</div>
         <div v-if="user" class="container">
-            <router-link to="/" class="navbar-brand">Annonces</router-link>
-            <router-link to="/categories" class="navbar-brand">Catégories</router-link>
-            <a href="/contactus" class="navbar-brand">Contacter nous</a>
-            <router-link to="/newad" class="navbar-brand" data-toggle="modal" data-target="#myModal">Déposer une annonce</router-link>
-            <a href="#" class="navbar-brand"><img src="" alt=""></a>
+            <router-link to="/" class="navbar-brand p-0">Annonces</router-link>
+            <router-link to="/categories" class="navbar-brand p-0">Catégories</router-link>
+            <a href="/contactus" class="navbar-brand p-0">Contactez-nous</a>
+            <a href="#" class="text-white navbar-brand p-0" data-toggle="modal" data-target="#myModal">Déposer une annonce</a>
+            <a href="#" class="navbar-brand p-0"><img src="" alt=""></a>
         </div>
         <div>
             <b-dropdown v-if="user" variant="primary" id="dropdown-1" text="Options" class="m-md-2 primary drop">
@@ -15,46 +16,168 @@
                 <b-dropdown-item><router-link to="/profile/mesannonces"><i class="fas fa-list-ul"></i>&emsp;Mes annonces</router-link></b-dropdown-item>
                 <b-dropdown-item><router-link to="/profile/mesfavoris" replace><i class="fas fa-heart"></i>&emsp;Mes favoris</router-link></b-dropdown-item>
                 <b-dropdown-divider></b-dropdown-divider>
-                <b-dropdown-item @click="logout"  active><i class="fas fa-sign-out-alt"></i>&emsp;Logout</b-dropdown-item>
+                <b-dropdown-item @click="logout"  active><i class="fas fa-sign-out-alt"></i>&emsp;Déconnexion</b-dropdown-item>
             </b-dropdown>
         </div>  
     </nav>
+    <div class="modal fade" id="myModal" v-if="this.user">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <b-container class="m-auto bg-light radius">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Déposer votre annonce</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <b-form @submit.prevent="addPost">
+                                <b-row class="p-2">
+                                    <b-col class="m-auto" cols="8">
+                                        <b-form-select v-model="newAd.categorie_id">
+                                            <option :value=0>Choisissez une catégorie</option>
+                                            <option :value="categorie.id" v-for="categorie in categories" :key="categorie.id">
+                                                {{categorie.name}}
+                                            </option>
+                                        </b-form-select>
+                                    </b-col>
+                                </b-row>
+                                <b-row class="p-2">
+                                    <b-col class="m-auto" cols="8">
+                                        <b-form-input id="input-2" v-model="newAd.title" placeholder="Titre de l'annonce" ></b-form-input>
+                                    </b-col>
+                                </b-row>
+                                <b-row class="p-2">
+                                    <b-col class="m-auto" cols="8">
+                                        <b-form-textarea id="textarea" v-model="newAd.description" placeholder="Description..." rows="6"></b-form-textarea>
+                                    </b-col>
+                                </b-row>
+                                <b-row class="p-2">
+                                    <b-col class="m-auto" cols="8">
+                                        <input type="file" @change="onImageChange" name="image" class="form-control">
+                                    </b-col>
+                                </b-row>
+                                <b-row class="p-2">
+                                    <b-col  class="m-auto" cols="12">
+                                        <span  v-bind:key="index" v-for="(images,index) in this.newAd.image">
+                                            <!-- <img class="image" :src="images" alt="image">
+                                            <button class="text-danger hi">x</button> -->
+                                            <!-- {{ index }} -->
+                                            <div id="container">
+                                                    <button v-on:click="close(index,$event)" id = "x"><i class="far fa-times-circle"></i></button>
+                                                    <img class="image" :src="images" alt="image">
+                                            </div>
+                                        </span>
+                                    </b-col>
+                                </b-row>
+                                <b-row class="p-2">
+                                    <b-col class="m-auto" cols="8">
+                                        <b-form-group id="input-group-2">
+                                            <b-form-input type="number" id="input-2" v-model="newAd.price" placeholder="Prix"></b-form-input>
+                                        </b-form-group>
+                                    </b-col>
+                                </b-row>
+                                <b-row class="p-2">
+                                    <b-col class="m-auto post-button" cols="8">
+                                        <b-button class="btn btn-primary" type="submit" variant="primary"><i class="fas fa-check-circle"></i> Valider</b-button>
+                                    </b-col>
+                                </b-row>
+                            </b-form>
+                        </div>
+                    </b-container>
+                </div>
+            </div>
+        </div>
+</div>
 </template>
 <script>
 import { logout,getLocalUser } from '../../Helpers/auth';
+import { apiDomain } from '../../config';
+import {postAd} from './../../Helpers/Ads';
 
 export default {
     created(){
         this.user=getLocalUser();
         
-
+        this.fetchCategories();
         console.log(this.$store.getters.currentUser);
+    },
+    mounted(){
+        if(this.$store.getters.currentUser){
+            this.user_id=this.$store.getters.currentUser.id;
+        }
     },
     data(){
         return{
-            user:null
+            user:null,
+            image:null,
+            user:this.$store.getters.currentUser,
+            categories:[],
+            newAd: {
+                image:[],
+                title:'',
+                description:'',
+                price:0,
+                user_id:this.$store.getters.currentUser.id,
+                categorie_id:0,
+            },
         }
     },
     methods:{
         logout(){
                 // console.log("logout called");
                 this.$store.dispatch('logout'); 
-
-                // logout()
-                // .then((res) => {
-
-                //     // this.$store.commit("logout",res);
-                //     // console.log("success");
-                //     // window.location.href="http://127.0.0.1:8001/";
-                //     // this.$router.push("/");
-                // })
-                // .catch((error) => {
-                //     console.log(error);
-                //     this.error=error.message;
-                //     this.$store.commit("loginFailed",{error});//error is a payload
-                //     this.msg=error;
-                // })
-                
+        },
+        close(index,e){
+                e.preventDefault();
+                this.newAd.image.splice(index, 1);
+            },
+        onImageChange(e) {
+                var fileReader=new FileReader();
+                fileReader.readAsDataURL(e.target.files[0]);
+                fileReader.onload=(e) => {
+                    this.newAd.image.push(e.target.result);
+                }
+        },
+        fetchCategories(page_url){
+            var user=getLocalUser();
+            let AuthStr=null; 
+            if(user){
+                AuthStr='Bearer '.concat(user.token);
+            }
+            page_url=page_url || 'api/auth/categories'
+            fetch(page_url,{
+                headers:{
+                    'Authorization': AuthStr,
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res=>res.json())
+            .then(res=>{
+                this.categories=res.data;
+            })
+            .catch(err => console.log(err));
+        },
+        addPost() {
+            var user=getLocalUser();
+            const AuthStr='Bearer '.concat(user.token);
+            console.log(this.newAd);
+            postAd(this.newAd)
+            .then((res) => {
+                this.$bvToast.toast('Votre annonce a bien été publiée', {
+                    title: 'Message',
+                    variant: "success",
+                    solid: true
+                })
+                //window.location.href="http://127.0.0.1:8000/";
+            })
+            .catch((error) => {
+                console.log(error);
+                this.$bvToast.toast(error, {
+                title: 'Message',
+                variant: "danger",
+                solid: true
+                })
+            })
+            //this.$router.push({path: '/'});
         }
     }
 }
@@ -74,6 +197,63 @@ export default {
         margin-top: 9px;
         font-style: italic;
         font-size: medium;
+    }
+
+    #container {
+        width: 30%;
+        border-radius: 10px;
+        border: 1px solid #083f91;
+        /* padding: 15px 15px 15px 15px; */
+        margin: 20px 20px 20px 20px;
+        background: #083f91;
+        overflow: visible;
+        box-shadow: 3px 3px 2px #888888;
+        position: relative;
+        display: inline-block;
+    }
+
+    #x {
+        position: absolute;
+        color: #083f91;
+        top: -10px;
+        right: -10px;
+    }
+    .margin{
+        margin-top:10%;   
+    }
+
+    .radius{
+        border-radius: 1rem;
+    }
+
+    .image{
+        width: 100%;
+        height: 16%;
+        margin: 1;
+        padding: 2px;
+        /* border: 1px solid gray; */
+        border-radius: 1rem;
+    }
+
+    .modal-title{
+        color: #2699fb;
+    }
+
+    .post-button .btn-primary{
+        color: #2699fb;
+        letter-spacing: 1px;
+        line-height: 25px;
+        border: 2px solid #2699fb;
+        border-radius: 40px;
+        background: transparent;
+        transition: all 0.3s ease 0s;
+        float: right;
+    }
+
+    .post-button .btn-primary:hover{
+        color: #FFF;
+        background: #2699fb;
+        border: 2px solid #2699fb;
     }
 </style>
 

@@ -3,7 +3,7 @@
     <title>EnSale</title>
     <meta name="csrf-token" content="{{csrf_token()}}">
     <script>window.Laravel={csrfToken:'{{csrf_token()}}'}</script>
-     <!-- Fonts -->
+    <!-- Fonts -->
     <link href="/fontawesome 5.8.2/css/all.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
 </head>
@@ -11,5 +11,6 @@
     <div id="app">
         <mainapp></mainapp>
     </div>
-    <script src="{{ asset('js/app.js') }}"></script>
 </body>
+
+<script src="{{ asset('js/app.js') }}"></script>

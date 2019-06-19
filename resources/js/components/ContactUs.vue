@@ -1,78 +1,99 @@
 <template>
     <div>
         <navbar/>
-        <section class="Material-contact-section section-padding section-dark">
+        <section>
         <div class="container">
             <div class="row">
-                <!-- Section Titile -->
-                <div class="col-md-12 wow animated fadeInLeft" data-wow-delay=".2s">
-                    <h1 class="section-title">Love to Hear From You</h1>
+                <div class="col-md-12">
+                    <h1 class="section-title">Nous sommes à l'écoute <i class="far fa-smile-wink"></i></h1>
                 </div>
             </div>
             <div class="row">
-                <!-- Section Titile -->
-                <div class="col-md-6 mt-3 contact-widget-section2 wow animated fadeInLeft" data-wow-delay=".2s">
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content.</p>
+                <div class="col-md-6 mt-3">
+                    <p class="text">Nous vous invitons à remplir notre formulaire, si vous avez des questions techniques, 
+                        commerciales ou memes des réclamations.</p>
 
                     <div class="find-widget">
-                    StartUp  <a href="https://hostriver.ro">HostRiver</a>
+                    StartUp:  <a href="#">EnSale</a>
                     </div>
                     <div class="find-widget">
-                    Adresse: <a href="#">4435 Berkshire Circle Knoxville</a>
+                    Adresse:  <a href="#">Sidi Bouzid</a>
                     </div>
                     <div class="find-widget">
                     Tel:  <a href="#">+ 879-890-9767</a>
                     </div>
                     
                     <div class="find-widget">
-                    Site web:  <a href="https://uny.ro">www.uny.ro</a>
+                    Site web:  <a href="#">www.Ensale.ma</a>
                     </div>
                 </div>
                 <!-- contact form -->
-                <div class="col-md-6 wow animated fadeInRight" data-wow-delay=".2s">
-                    <form class="shake" role="form" method="post" id="contactForm" name="contact-form" data-toggle="validator">
-                        <!-- Name -->
-                        <div class="form-group label-floating">
-                            <label class="control-label" for="name">Nom et prénom</label>
-                            <input class="form-control" id="name" type="text" name="name" required data-error="Please enter your name">
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <!-- email -->
-                        <div class="form-group label-floating">
-                            <label class="control-label" for="email">Email</label>
-                            <input class="form-control" id="email" type="email" name="email" required data-error="Please enter your Email">
-                            <div class="help-block with-errors"></div>
-                        </div>
+                <div class="col-md-6">
+                    <form method="post" @submit.prevent="onSubmit">
                         <!-- Subject -->
-                        <div class="form-group label-floating">
-                            <label class="control-label">Sujet</label>
-                            <input class="form-control" id="msg_subject" type="text" name="subject" required data-error="Please enter your message subject">
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Sujet" type="text" name="subject" required data-error="Please enter your message subject" v-model="info.subject">
                             <div class="help-block with-errors"></div>
                         </div>
                         <!-- Message -->
-                        <div class="form-group label-floating">
-                            <label for="message" class="control-label">Message</label>
-                            <textarea class="form-control" rows="3" id="message" name="message" required data-error="Write your message"></textarea>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="8" id="message" placeholder="Votre message ici..." name="message" required data-error="Write your message" v-model="info.message"></textarea>
                             <div class="help-block with-errors"></div>
                         </div>
                         <!-- Form Submit -->
                         <div class="form-submit mt-5 contact-button">
                             <button class="btn btn-primary" type="submit" id="form-submit"><i class="fas fa-paper-plane"></i>&emsp;Envoyer</button>
                             <div id="msgSubmit" class="h3 text-center hidden"></div>
-                            <div class="clearfix"></div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         </section>
+        <mfooter></mfooter>
     </div>
 </template>
 
 <script>
+import {getLocalUser} from '../Helpers/auth';
+
 export default {
-name:"SpaTest"
+    data(){
+        return{
+            info:{
+                email: getLocalUser().email,
+                subject:'',
+                message:''
+            },
+            success:false
+        }
+    },
+    methods:{
+        onSubmit(){
+            var user=getLocalUser();
+            const AuthStr='Bearer '.concat(user.token);
+            return new Promise((res,rej) =>{
+                axios.post('api/auth/send',
+                {
+                    email: this.info.email,
+                    subject: this.info.subject,
+                    message: this.info.message,
+                    headers:{
+                        'Authorization': AuthStr,
+                        'Content-Type': 'application/json',
+                    }
+                    
+                })
+                .then( response => {
+                        console.log(response.data);
+                        this.display_ad=response.data;
+                    })
+                .catch(err => console.log(err));
+            })        
+        }
+    }
 }
+
 </script>
 
 <style>
@@ -92,4 +113,11 @@ name:"SpaTest"
         border: 2px solid #2699fb;
     }
 
+    .section-title{
+        color: #2699fb;
+    }
+
+    .text{
+        font-size: large;
+    }
 </style>

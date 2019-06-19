@@ -8,8 +8,12 @@
 
 <script>
     import Navbar from './navbars/Navbar.vue';
+    import mfooter from './mfooter.vue';
     export default {
         name: 'mainapp',
-        components: {Navbar}
+        components: {
+            Navbar,
+            mfooter
+        }
     }
 </script>

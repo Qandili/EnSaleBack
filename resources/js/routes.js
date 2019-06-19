@@ -1,7 +1,6 @@
 
 import Ads from './components/Ads.vue';
 import ContactUs from './components/ContactUs.vue';
-import PostNewAd from './components/PostNewAd.vue';
 import Categories from './components/Categories.vue';
 import Login from './components/auth/Login.vue';
 import SpaTest from './components/SpaTest.vue';
@@ -29,11 +28,6 @@ export const router = [
         meta: {
             requiresAuth: true
         }
-    },
-    {
-        path:'/newad',
-        name:'newad',
-        component:PostNewAd
     },
     {
         path:'/categories',

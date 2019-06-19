@@ -44,6 +44,9 @@ Route::group(['prefix' => 'auth'], function () {
         //*******************Users
         //Get single user
         Route::get('user/{id}','UserController@show');
+        //*******************Contact
+        Route::post('send','ContactController@store');
+        //*******************Profile
         Route::get('profile','ProfileController@index');
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');

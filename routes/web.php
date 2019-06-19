@@ -14,12 +14,4 @@ Route::get('{any}', function () {
     return view('app');
 })->where('any', '.*');
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', function () {
-    return view('app');
-});
-
-
-Route::get('profile','ProfileController@index');
-
 

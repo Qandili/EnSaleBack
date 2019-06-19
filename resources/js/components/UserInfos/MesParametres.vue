@@ -82,7 +82,7 @@ export default {
     uploadImage(){
         axios.put('/api/auth/updatePicture',this.credentials)
         .then((res) => {
-                this.$bvToast.toast('Votre Photo de profile a bien été publiée', {
+                this.$bvToast.toast('Votre photo de profil a bien été modifiée', {
                     title: 'Message',
                     variant: "success",
                     solid: true
